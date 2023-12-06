@@ -3,11 +3,22 @@ using Microsoft.AspNetCore.Mvc;
 using SampleApp.Api.Application.Commands;
 using SampleApp.Api.Application.Models;
 using SampleApp.Api.Application.Queries;
+using SampleApp.Domain.Customer.DomainEvents;
 using SampleApp.Domain.Customer.Repositories;
 using SampleApp.Infrastructure.Models.Settings;
 using SampleApp.Infrastructure.Repositories;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+builder.Host.UseSerilog();
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -15,7 +26,7 @@ builder.Services.AddOptions<KafkaSettings>().BindConfiguration("Kafka").Validate
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
-builder.Services.AddMediatR(options => options.RegisterServicesFromAssemblyContaining<Program>());   
+builder.Services.AddMediatR(options => options.RegisterServicesFromAssemblyContaining<Program>());
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -29,32 +40,26 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-var summaries = new[]
+app.MapGet("/api/customer/{email}", async (string email, [FromServices] IMediator mediator, [FromServices] ILogger<Program> logger) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    logger.LogInformation("Execute get customer");
 
-app.MapGet("/api/customer/{email}", async (string email, [FromServices] IMediator mediator) => {
     return await mediator.Send(new GetCustomerByEmailQuery(email));
-});
-
-app.MapPost("/api/customer", async ([FromBody] CreateCustomerRequest data, [FromServices] IMediator mediator) => {
-    return await mediator.Send(new CreateCustomerCommand(data.Email));
-});
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
 })
-.WithName("GetWeatherForecast")
+.WithName("GetCustomer")
+.WithOpenApi();
+
+app.MapPost("/api/customer", async ([FromBody] CreateCustomerRequest data, [FromServices] IMediator mediator, [FromServices] ILogger<Program> logger) =>
+{
+    logger.LogInformation("Execute get customer");
+
+    var customer = await mediator.Send(new CreateCustomerCommand(data.Email));
+
+    await mediator.Publish(new CustomerCreatedDomainEvent(1, "debit", "123", "John Doe", DateTime.UtcNow));
+
+    return customer;
+})
+.WithName("CreateCustomer")
 .WithOpenApi();
 
 app.Run();

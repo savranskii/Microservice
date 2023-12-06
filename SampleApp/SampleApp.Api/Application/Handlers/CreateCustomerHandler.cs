@@ -5,9 +5,10 @@ using SampleApp.Domain.Customer.Repositories;
 
 namespace SampleApp.Api.Application.Handlers;
 
-public class CreateCustomerHandler(ICustomerRepository customerRepository) : IRequestHandler<CreateCustomerCommand, long>
+public class CreateCustomerHandler(ICustomerRepository customerRepository, ILogger<CreateCustomerHandler> logger) : IRequestHandler<CreateCustomerCommand, long>
 {
     private readonly ICustomerRepository _customerRepository = customerRepository;
+    private readonly ILogger<CreateCustomerHandler> _logger = logger;
 
     public async Task<long> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
@@ -16,6 +17,8 @@ public class CreateCustomerHandler(ICustomerRepository customerRepository) : IRe
             // Id = _orders.Count + 1,
             Email = request.Email,
         };
+
+        _logger.LogInformation("Customer created");
 
         await _customerRepository.CreateAsync(customer);
 
