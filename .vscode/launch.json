@@ -8,46 +8,24 @@
 				"order": 1
 			},
             "configurations": [
-                "Back End",
-                "Front End"
+                "API"
             ]
         }
     ],
     "configurations": [
         {
-            "name": "Back End",
+            "name": "API",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build backend",
-            "program": "${workspaceFolder}/SampleApp/BackEnd/bin/Debug/net8.0/BackEnd.dll",
+            "preLaunchTask": "build api",
+            "program": "${workspaceFolder}/SampleApp/SampleApp.Api/bin/Debug/net8.0/SampleApp.Api.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/SampleApp/BackEnd",
+            "cwd": "${workspaceFolder}/SampleApp/SampleApp.Api",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
                 "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
                 "uriFormat": "%s/swagger"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
-            }
-        },
-        {
-            "name": "Front End",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build frontend",
-            "program": "${workspaceFolder}/SampleApp/FrontEnd/bin/Debug/net8.0/FrontEnd.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/SampleApp/FrontEnd",
-            "stopAtEntry": false,
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
-                "uriFormat": "%s/"
             },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
