@@ -44,7 +44,11 @@ app.MapGet("/api/customer/{email}", async (string email, [FromServices] IMediato
 {
     logger.LogInformation("Execute get customer");
 
-    return await mediator.Send(new GetCustomerByEmailQuery(email));
+    var customer = await mediator.Send(new GetCustomerByEmailQuery(email));
+
+    return customer is null
+        ? TypedResults.NotFound()
+        : TypedResults.Ok(customer);
 })
 .WithName("GetCustomer")
 .WithOpenApi();
@@ -53,11 +57,11 @@ app.MapPost("/api/customer", async ([FromBody] CreateCustomerRequest data, [From
 {
     logger.LogInformation("Execute get customer");
 
-    var customer = await mediator.Send(new CreateCustomerCommand(data.Email));
+    var customerId = await mediator.Send(new CreateCustomerCommand(data.Email));
 
     await mediator.Publish(new CustomerCreatedDomainEvent(1, "debit", "123", "John Doe", DateTime.UtcNow));
 
-    return customer;
+    return TypedResults.Ok(customerId);
 })
 .WithName("CreateCustomer")
 .WithOpenApi();
