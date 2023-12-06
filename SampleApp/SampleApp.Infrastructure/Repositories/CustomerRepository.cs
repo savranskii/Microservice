@@ -5,9 +5,17 @@ namespace SampleApp.Infrastructure.Repositories;
 
 public class CustomerRepository : ICustomerRepository
 {
-    public Task CreateAsync(Customer item)
+    private static int _lastId = 1;
+    private readonly static List<Customer> _customers = [];
+
+    public async Task CreateAsync(Customer item)
     {
-        throw new NotImplementedException();
+        item.Id = _lastId;
+        _customers.Add(item);
+        
+        _lastId++;
+
+        await Task.CompletedTask;
     }
 
     public Task DeleteAsync(long id)
@@ -15,9 +23,9 @@ public class CustomerRepository : ICustomerRepository
         throw new NotImplementedException();
     }
 
-    public Task<Customer> GetByEmailAsync(string email)
+    public async Task<Customer?> GetByEmailAsync(string email)
     {
-        throw new NotImplementedException();
+        return await Task.FromResult(_customers.FirstOrDefault(c => c.Email == email));
     }
 
     public Task<Customer> GetByIdAsync(long id)

@@ -1,10 +1,21 @@
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using SampleApp.Api.Application.Commands;
+using SampleApp.Api.Application.Models;
+using SampleApp.Api.Application.Queries;
+using SampleApp.Domain.Customer.Repositories;
 using SampleApp.Infrastructure.Models.Settings;
+using SampleApp.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddOptions<KafkaSettings>().BindConfiguration("Kafka").ValidateDataAnnotations().ValidateOnStart();
+
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+
+builder.Services.AddMediatR(options => options.RegisterServicesFromAssemblyContaining<Program>());   
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -22,6 +33,14 @@ var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
+
+app.MapGet("/api/customer/{email}", async (string email, [FromServices] IMediator mediator) => {
+    return await mediator.Send(new GetCustomerByEmailQuery(email));
+});
+
+app.MapPost("/api/customer", async ([FromBody] CreateCustomerRequest data, [FromServices] IMediator mediator) => {
+    return await mediator.Send(new CreateCustomerCommand(data.Email));
+});
 
 app.MapGet("/weatherforecast", () =>
 {
