@@ -23,5 +23,4 @@ public class DefaultExceptionHandler(ILogger<DefaultExceptionHandler> logger) : 
 
         return true;
     }
-
 }
