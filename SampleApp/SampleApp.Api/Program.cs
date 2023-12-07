@@ -1,10 +1,7 @@
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using SampleApp.Api.Application.Commands;
-using SampleApp.Api.Application.Models;
-using SampleApp.Api.Application.Queries;
-using SampleApp.Domain.Customer.DomainEvents;
+using Microsoft.EntityFrameworkCore;
+using SampleApp.Api;
 using SampleApp.Domain.Customer.Repositories;
+using SampleApp.Infrastructure.DbContexts;
 using SampleApp.Infrastructure.Models.Settings;
 using SampleApp.Infrastructure.Repositories;
 using Serilog;
@@ -21,7 +18,8 @@ builder.Logging.AddSerilog(logger);
 builder.Host.UseSerilog();
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddDbContext<CustomerContext>(opt => opt.UseInMemoryDatabase("CustomerDb"));
+
 builder.Services.AddOptions<KafkaSettings>().BindConfiguration("Kafka").ValidateDataAnnotations().ValidateOnStart();
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
@@ -40,35 +38,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapGet("/api/customer/{email}", async (string email, [FromServices] IMediator mediator, [FromServices] ILogger<Program> logger) =>
-{
-    logger.LogInformation("Execute get customer");
-
-    var customer = await mediator.Send(new GetCustomerByEmailQuery(email));
-
-    return customer is null
-        ? TypedResults.NotFound()
-        : TypedResults.Ok(customer);
-})
-.WithName("GetCustomer")
-.WithOpenApi();
-
-app.MapPost("/api/customer", async ([FromBody] CreateCustomerRequest data, [FromServices] IMediator mediator, [FromServices] ILogger<Program> logger) =>
-{
-    logger.LogInformation("Execute get customer");
-
-    var customerId = await mediator.Send(new CreateCustomerCommand(data.Email));
-
-    await mediator.Publish(new CustomerCreatedDomainEvent(1, "debit", "123", "John Doe", DateTime.UtcNow));
-
-    return TypedResults.Ok(customerId);
-})
-.WithName("CreateCustomer")
-.WithOpenApi();
+app.MapCustomerEndpoints();
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

@@ -1,40 +1,43 @@
-﻿using SampleApp.Domain.Customer.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SampleApp.Domain.Customer.Entities;
 using SampleApp.Domain.Customer.Repositories;
+using SampleApp.Infrastructure.DbContexts;
 
 namespace SampleApp.Infrastructure.Repositories;
 
-public class CustomerRepository : ICustomerRepository
+public class CustomerRepository(CustomerContext context) : ICustomerRepository
 {
-    private static int _lastId = 1;
-    private readonly static List<Customer> _customers = [];
-
+    private readonly CustomerContext _context = context;
+    
     public async Task CreateAsync(Customer item)
     {
-        item.Id = _lastId;
-        _customers.Add(item);
-        
-        _lastId++;
-
-        await Task.CompletedTask;
+        _context.Customers.Add(item);
+        await _context.SaveChangesAsync();
     }
 
-    public Task DeleteAsync(long id)
+    public async Task DeleteAsync(long id)
     {
-        throw new NotImplementedException();
+        var customer = await _context.Customers.FindAsync(id) ?? throw new ArgumentException("Invalid ID");
+        _context.Customers.Remove(customer);
+        await _context.SaveChangesAsync();
     }
 
     public async Task<Customer?> GetByEmailAsync(string email)
     {
-        return await Task.FromResult(_customers.FirstOrDefault(c => c.Email == email));
+        return await _context.Customers.FirstOrDefaultAsync(c => c.Email == email);
     }
 
-    public Task<Customer> GetByIdAsync(long id)
+    public async Task<Customer?> GetByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        return await _context.Customers.FindAsync(id);
     }
 
-    public Task UpdateAsync(long id, Customer item)
+    public async Task UpdateAsync(long id, Customer item)
     {
-        throw new NotImplementedException();
+        var customer = await _context.Customers.FindAsync(id) ?? throw new ArgumentException("Invalid ID");
+
+        customer.Email = item.Email;
+
+        await _context.SaveChangesAsync();
     }
 }
