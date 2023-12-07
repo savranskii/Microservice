@@ -4,7 +4,16 @@ Get {{Api_HostAddress}}/api/customer/1
 
 ###
 
-Get {{Api_HostAddress}}/api/customer/search?email=test@mail.com
+Get {{Api_HostAddress}}/api/customer/all
+
+###
+
+Put {{Api_HostAddress}}/api/customer/search
+Content-Type: application/json
+
+{
+  "email": "test@mail.com"
+}
 
 ###
 
@@ -13,6 +22,19 @@ Content-Type: application/json
 
 {
   "email": "test@mail.com"
+}
+
+###
+
+Put {{Api_HostAddress}}/api/customer
+Content-Type: application/json
+
+{
+  "id": 1,
+  "item":
+  {
+    "email": "test@mail.com"
+  }
 }
 
 ###
