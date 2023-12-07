@@ -2,7 +2,7 @@
 using SampleApp.Api.Application.Commands;
 using SampleApp.Domain.Customer.Repositories;
 
-namespace SampleApp.Api;
+namespace SampleApp.Api.Application.Handlers;
 
 public class DeleteCustomerHandler(ICustomerRepository repository, ILogger<DeleteCustomerHandler> logger) : IRequestHandler<DeleteCustomerCommand>
 {

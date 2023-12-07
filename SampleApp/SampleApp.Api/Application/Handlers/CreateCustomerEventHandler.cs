@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using SampleApp.Domain.Customer.DomainEvents;
 
-namespace SampleApp.Api;
+namespace SampleApp.Api.Application.Handlers;
 
 public class CreateCustomerEventHandler(ILogger<CreateCustomerEventHandler> logger) : INotificationHandler<CustomerCreatedDomainEvent>
 {

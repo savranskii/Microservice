@@ -32,6 +32,11 @@ public class CustomerRepository(CustomerContext context) : ICustomerRepository
         return await _context.Customers.FindAsync(id);
     }
 
+    public async Task<IEnumerable<Customer>> GetAllAsync()
+    {
+        return await _context.Customers.ToListAsync();
+    }
+
     public async Task UpdateAsync(long id, Customer item)
     {
         var customer = await _context.Customers.FindAsync(id) ?? throw new ArgumentException("Invalid ID");

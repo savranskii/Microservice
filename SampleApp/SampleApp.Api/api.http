@@ -1,6 +1,10 @@
 @Api_HostAddress = https://localhost:8080
 
-Get {{Api_HostAddress}}/api/customer/test@mail.com
+Get {{Api_HostAddress}}/api/customer/1
+
+###
+
+Get {{Api_HostAddress}}/api/customer/search?email=test@mail.com
 
 ###
 
