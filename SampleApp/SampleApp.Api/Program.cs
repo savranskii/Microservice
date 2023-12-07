@@ -1,10 +1,13 @@
 using Microsoft.EntityFrameworkCore;
+using SampleApp.Api.Infrastructure.ErrorHandlers;
 using SampleApp.Api.Infrastructure.Extensions;
 using SampleApp.Domain.Customer.Repositories;
 using SampleApp.Infrastructure.DbContexts;
 using SampleApp.Infrastructure.Models.Settings;
 using SampleApp.Infrastructure.Repositories;
 using Serilog;
+
+// TODO RateLimit
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +21,8 @@ builder.Logging.AddSerilog(logger);
 builder.Host.UseSerilog();
 
 // Add services to the container.
+builder.Services.AddExceptionHandler<DefaultExceptionHandler>();
+
 builder.Services.AddDbContext<CustomerContext>(opt => opt.UseInMemoryDatabase("CustomerDb"));
 
 builder.Services.AddOptions<KafkaSettings>().BindConfiguration("Kafka").ValidateDataAnnotations().ValidateOnStart();
