@@ -1,8 +1,10 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using SampleApp.Api.Application.Commands;
 using SampleApp.Api.Application.Models;
 using SampleApp.Api.Application.Queries;
 using SampleApp.Domain.Customer.DomainEvents;
+using SampleApp.Domain.Customer.Entities;
 
 namespace SampleApp.Api.Infrastructure.Endpoints;
 
@@ -10,17 +12,54 @@ public static class CustomerEndpoint
 {
     public static void MapCustomerEndpoints(this WebApplication app)
     {
-        var customerApi = app.MapGroup("/api/customer");
-
-        customerApi.MapGet("/{id:long}", GetCustomerAsync).WithName("GetCustomer").WithOpenApi();
-        customerApi.MapGet("/all", GetCustomersAsync).WithName("GetCustomers").WithOpenApi();
-        customerApi.MapPut("/search", SearchCustomerAsync).WithName("SearchCustomer").WithOpenApi();
-        customerApi.MapPost("/", CreateCustomerAsync).WithName("CreateCustomer").WithOpenApi();
-        customerApi.MapPut("/", UpdateCustomerAsync).WithName("UpdateCustomer").WithOpenApi();
-        customerApi.MapDelete("/{id:long}", DeleteCustomerAsync).WithName("DeleteCustomer").WithOpenApi();
+        app.MapGroup("/api/customer")
+            .MapCustomerApi()
+            .WithTags("Public");
+        // .AllowAnonymous();
+        // .RequireAuthorization();
     }
 
-    static async Task<IResult> GetCustomerAsync(long id, IMediator mediator, ILogger<Program> logger)
+    public static RouteGroupBuilder MapCustomerApi(this RouteGroupBuilder group)
+    {
+        group.MapGet("/{id:long}", GetCustomerAsync)
+            .Produces<Customer>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound)
+            .WithName("GetCustomer")
+            .WithOpenApi();
+
+        group.MapGet("/all", GetCustomersAsync)
+            .Produces<IEnumerable<Customer>>(StatusCodes.Status200OK)
+            .WithName("GetCustomers")
+            .WithOpenApi();
+
+        group.MapPut("/search", SearchCustomerAsync)
+            .Produces<Customer>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound)
+            .WithName("SearchCustomer")
+            .WithOpenApi();
+
+        group.MapPost("/", CreateCustomerAsync)
+            .Produces<long>(StatusCodes.Status200OK)
+            .WithName("CreateCustomer")
+            .WithOpenApi();
+
+        group.MapPut("/", UpdateCustomerAsync)
+            .Produces(StatusCodes.Status204NoContent)
+            .WithName("UpdateCustomer")
+            .WithOpenApi();
+
+        group.MapDelete("/{id:long}", DeleteCustomerAsync)
+            .Produces(StatusCodes.Status204NoContent)
+            .WithName("DeleteCustomer")
+            .WithOpenApi();
+
+        return group;
+    }
+
+    static async Task<IResult> GetCustomerAsync(
+        [FromRoute] long id,
+        [FromServices] IMediator mediator,
+        [FromServices] ILogger<Program> logger)
     {
         logger.LogInformation("Execute get by id customer");
 
@@ -29,7 +68,9 @@ public static class CustomerEndpoint
         return customer is null ? TypedResults.NotFound() : TypedResults.Ok(customer);
     }
 
-    static async Task<IResult> GetCustomersAsync(IMediator mediator, ILogger<Program> logger)
+    static async Task<IResult> GetCustomersAsync(
+        [FromServices] IMediator mediator,
+        [FromServices] ILogger<Program> logger)
     {
         logger.LogInformation("Execute get all customer");
 
@@ -38,7 +79,10 @@ public static class CustomerEndpoint
         return TypedResults.Ok(customers);
     }
 
-    static async Task<IResult> SearchCustomerAsync(SearchCustomerRequest data, IMediator mediator, ILogger<Program> logger)
+    static async Task<IResult> SearchCustomerAsync(
+        [FromBody] SearchCustomerRequest data,
+        [FromServices] IMediator mediator,
+        [FromServices] ILogger<Program> logger)
     {
         logger.LogInformation("Execute search customer");
 
@@ -47,7 +91,10 @@ public static class CustomerEndpoint
         return customer is null ? TypedResults.NotFound() : TypedResults.Ok(customer);
     }
 
-    static async Task<IResult> CreateCustomerAsync(CreateCustomerRequest data, IMediator mediator, ILogger<Program> logger)
+    static async Task<IResult> CreateCustomerAsync(
+        [FromBody] CreateCustomerRequest data,
+        [FromServices] IMediator mediator,
+        [FromServices] ILogger<Program> logger)
     {
         logger.LogInformation("Execute create customer");
 
@@ -58,7 +105,10 @@ public static class CustomerEndpoint
         return TypedResults.Ok(customerId);
     }
 
-    static async Task<IResult> UpdateCustomerAsync(UpdateCustomerRequest data, IMediator mediator, ILogger<Program> logger)
+    static async Task<IResult> UpdateCustomerAsync(
+        [FromBody] UpdateCustomerRequest data,
+        [FromServices] IMediator mediator,
+        [FromServices] ILogger<Program> logger)
     {
         logger.LogInformation("Execute update customer");
 
@@ -67,7 +117,10 @@ public static class CustomerEndpoint
         return Results.NoContent();
     }
 
-    static async Task<IResult> DeleteCustomerAsync(long id, IMediator mediator, ILogger<Program> logger)
+    static async Task<IResult> DeleteCustomerAsync(
+        [FromRoute] long id,
+        [FromServices] IMediator mediator,
+        [FromServices] ILogger<Program> logger)
     {
         logger.LogInformation("Execute delete customer");
 
