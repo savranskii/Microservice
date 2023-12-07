@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using SampleApp.Api;
+using SampleApp.Api.Endpoints;
 using SampleApp.Domain.Customer.Repositories;
 using SampleApp.Infrastructure.DbContexts;
 using SampleApp.Infrastructure.Models.Settings;

@@ -1,0 +1,18 @@
+@Api_HostAddress = https://localhost:8080
+
+Get {{Api_HostAddress}}/api/customer/test@mail.com
+
+###
+
+Post {{Api_HostAddress}}/api/customer
+Content-Type: application/json
+
+{
+  "email": "test@mail.com"
+}
+
+###
+
+Delete {{Api_HostAddress}}/api/customer/1
+
+###

@@ -4,7 +4,7 @@ using SampleApp.Api.Application.Models;
 using SampleApp.Api.Application.Queries;
 using SampleApp.Domain.Customer.DomainEvents;
 
-namespace SampleApp.Api;
+namespace SampleApp.Api.Endpoints;
 
 public static class CustomerEndpoint
 {
@@ -25,7 +25,7 @@ public static class CustomerEndpoint
 
         app.MapPost("/api/customer", async (CreateCustomerRequest data, IMediator mediator, ILogger<Program> logger) =>
         {
-            logger.LogInformation("Execute get customer");
+            logger.LogInformation("Execute post customer");
 
             var customerId = await mediator.Send(new CreateCustomerCommand(data.Email));
 
@@ -35,5 +35,16 @@ public static class CustomerEndpoint
         })
         .WithName("CreateCustomer")
         .WithOpenApi();
+
+        app.MapDelete("/api/customer/{id}", async (long id, IMediator mediator, ILogger<Program> logger) =>
+        {
+            logger.LogInformation("Execute delete customer");
+
+            await mediator.Send(new DeleteCustomerCommand(id));
+
+            return Results.NoContent();
+        })
+        .WithName("DeleteCustomer")
+        .WithOpenApi();;
     }
 }

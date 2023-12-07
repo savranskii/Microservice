@@ -14,7 +14,6 @@ public class CreateCustomerHandler(ICustomerRepository customerRepository, ILogg
     {
         var customer = new Customer
         {
-            // Id = _orders.Count + 1,
             Email = request.Email,
         };
 
