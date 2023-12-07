@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using SampleApp.Api.Infrastructure.Endpoints;
+using SampleApp.Api.Infrastructure.Extensions;
 using SampleApp.Domain.Customer.Repositories;
 using SampleApp.Infrastructure.DbContexts;
 using SampleApp.Infrastructure.Models.Settings;
@@ -29,6 +29,9 @@ builder.Services.AddMediatR(options => options.RegisterServicesFromAssemblyConta
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAuthentication().AddJwtBearer();
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,6 +40,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapCustomerEndpoints();
 

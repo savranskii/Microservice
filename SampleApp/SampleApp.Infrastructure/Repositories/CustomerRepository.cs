@@ -8,7 +8,7 @@ namespace SampleApp.Infrastructure.Repositories;
 public class CustomerRepository(CustomerContext context) : ICustomerRepository
 {
     private readonly CustomerContext _context = context;
-    
+
     public async Task CreateAsync(Customer item)
     {
         _context.Customers.Add(item);
@@ -17,9 +17,12 @@ public class CustomerRepository(CustomerContext context) : ICustomerRepository
 
     public async Task DeleteAsync(long id)
     {
-        var customer = await _context.Customers.FindAsync(id) ?? throw new ArgumentException("Invalid ID");
-        _context.Customers.Remove(customer);
-        await _context.SaveChangesAsync();
+        var customer = await _context.Customers.FindAsync(id);
+        if (customer is not null)
+        {
+            _context.Customers.Remove(customer);
+            await _context.SaveChangesAsync();
+        }
     }
 
     public async Task<Customer?> GetByEmailAsync(string email)
