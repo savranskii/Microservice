@@ -1,4 +1,6 @@
-﻿namespace SampleApp.Domain.Seeds;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SampleApp.Domain.Seeds;
 
 public interface IEntity<T> where T : struct
 {
@@ -22,6 +24,7 @@ public abstract class Entity : IEntity
     }
 
     private readonly List<IDomainEvent> _domainEvents = [];
+    [NotMapped]
     public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
     public void AddDomainEvent(IDomainEvent eventItem)
