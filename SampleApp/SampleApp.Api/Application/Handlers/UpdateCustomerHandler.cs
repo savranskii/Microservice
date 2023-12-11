@@ -21,5 +21,6 @@ public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand>
 
         await _unitOfWork.CustomerRepository.UpdateAsync(request.Id, request.Data);
         await _unitOfWork.SaveAsync();
+        _unitOfWork.Dispose();
     }
 }

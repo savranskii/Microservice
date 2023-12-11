@@ -20,6 +20,8 @@ public class SearchCustomerHandler : IRequestHandler<SearchCustomerQuery, Custom
     {
         _logger.LogInformation("Retrieving customer");
 
-        return await _unitOfWork.CustomerRepository.GetByEmailAsync(request.Data.Email);
+        var item = await _unitOfWork.CustomerRepository.GetByEmailAsync(request.Data.Email);
+        _unitOfWork.Dispose();
+        return item;
     }
 }

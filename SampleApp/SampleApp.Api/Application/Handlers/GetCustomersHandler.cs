@@ -20,6 +20,8 @@ public class GetCustomersHandler : IRequestHandler<GetCustomersQuery, IEnumerabl
     {
         _logger.LogInformation("Retrieving customer");
 
-        return await _unitOfWork.CustomerRepository.GetAllAsync();
+        var items = await _unitOfWork.CustomerRepository.GetAllAsync();
+        _unitOfWork.Dispose();
+        return items;
     }
 }

@@ -7,12 +7,12 @@ namespace SampleApp.Api.Application.Handlers;
 
 public class GetCustomerHandler : IRequestHandler<GetCustomerQuery, Customer?>
 {
-    private readonly IUnitOfWork _unitOfWOrk;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly ILogger<GetCustomerHandler> _logger;
 
     public GetCustomerHandler(IUnitOfWork unitOfWork, ILogger<GetCustomerHandler> logger)
     {
-        _unitOfWOrk = unitOfWork;
+        _unitOfWork = unitOfWork;
         _logger = logger;
     }
 
@@ -20,6 +20,8 @@ public class GetCustomerHandler : IRequestHandler<GetCustomerQuery, Customer?>
     {
         _logger.LogInformation("Retrieving customer");
 
-        return await _unitOfWOrk.CustomerRepository.GetByIdAsync(request.Id);
+        var item = await _unitOfWork.CustomerRepository.GetByIdAsync(request.Id);
+        _unitOfWork.Dispose();
+        return item;
     }
 }
