@@ -8,6 +8,7 @@ using SampleApp.Infrastructure.Repositories;
 using Serilog;
 
 // TODO RateLimit
+// TODO hide fields from models
 
 var builder = WebApplication.CreateBuilder(args);
 
