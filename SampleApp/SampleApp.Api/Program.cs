@@ -5,6 +5,7 @@ using SampleApp.Domain.Customer.Repositories;
 using SampleApp.Infrastructure.DbContexts;
 using SampleApp.Infrastructure.Models.Settings;
 using SampleApp.Infrastructure.Repositories;
+using SampleApp.Infrastructure.Services;
 using Serilog;
 
 // TODO RateLimit
@@ -29,6 +30,7 @@ builder.Services.AddDbContext<CustomerContext>(opt => opt.UseInMemoryDatabase("C
 builder.Services.AddOptions<KafkaSettings>().BindConfiguration("Kafka").ValidateDataAnnotations().ValidateOnStart();
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddMediatR(options => options.RegisterServicesFromAssemblyContaining<Program>());
 

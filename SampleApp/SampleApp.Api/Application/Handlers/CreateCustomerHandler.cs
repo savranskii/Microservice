@@ -1,14 +1,20 @@
 using MediatR;
 using SampleApp.Api.Application.Commands;
 using SampleApp.Domain.Customer.Entities;
-using SampleApp.Domain.Customer.Repositories;
+using SampleApp.Infrastructure.Services;
 
 namespace SampleApp.Api.Application.Handlers;
 
-public class CreateCustomerHandler(ICustomerRepository customerRepository, ILogger<CreateCustomerHandler> logger) : IRequestHandler<CreateCustomerCommand, long>
+public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand, long>
 {
-    private readonly ICustomerRepository _customerRepository = customerRepository;
-    private readonly ILogger<CreateCustomerHandler> _logger = logger;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly ILogger<CreateCustomerHandler> _logger;
+
+    public CreateCustomerHandler(IUnitOfWork unitOfWork, ILogger<CreateCustomerHandler> logger)
+    {
+        _unitOfWork = unitOfWork;
+        _logger = logger;
+    }
 
     public async Task<long> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
@@ -19,7 +25,8 @@ public class CreateCustomerHandler(ICustomerRepository customerRepository, ILogg
 
         _logger.LogInformation("Customer created");
 
-        await _customerRepository.CreateAsync(customer);
+        await _unitOfWork.CustomerRepository.CreateAsync(customer);
+        await _unitOfWork.SaveAsync();
 
         return customer.Id;
     }

@@ -2,7 +2,7 @@
 
 namespace SampleApp.Domain.Customer.Repositories;
 
-public interface ICustomerRepository : IRepository<long, Entities.Customer>
+public interface ICustomerRepository : IRepository<long, Entities.Customer>, IDisposable
 {
     Task<Entities.Customer?> GetByEmailAsync(string email);
     Task<IEnumerable<Entities.Customer>> GetAllAsync();

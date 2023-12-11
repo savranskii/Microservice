@@ -12,7 +12,8 @@ public class CustomerRepository(CustomerContext context) : ICustomerRepository
     public async Task CreateAsync(Customer item)
     {
         _context.Customers.Add(item);
-        await _context.SaveChangesAsync();
+        await Task.CompletedTask;
+        // await _context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(long id)
@@ -21,7 +22,8 @@ public class CustomerRepository(CustomerContext context) : ICustomerRepository
         if (customer is not null)
         {
             _context.Customers.Remove(customer);
-            await _context.SaveChangesAsync();
+            await Task.CompletedTask;
+            // await _context.SaveChangesAsync();
         }
     }
 
@@ -46,6 +48,26 @@ public class CustomerRepository(CustomerContext context) : ICustomerRepository
 
         customer.Email = item.Email;
 
-        await _context.SaveChangesAsync();
+        // await _context.SaveChangesAsync();
+    }
+
+    private bool disposed = false;
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposed)
+        {
+            if (disposing)
+            {
+                _context.Dispose();
+            }
+        }
+        disposed = true;
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }

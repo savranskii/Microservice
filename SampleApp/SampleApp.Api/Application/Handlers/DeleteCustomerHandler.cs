@@ -1,17 +1,24 @@
 ﻿using MediatR;
 using SampleApp.Api.Application.Commands;
-using SampleApp.Domain.Customer.Repositories;
+using SampleApp.Infrastructure.Services;
 
 namespace SampleApp.Api.Application.Handlers;
 
-public class DeleteCustomerHandler(ICustomerRepository repository, ILogger<DeleteCustomerHandler> logger) : IRequestHandler<DeleteCustomerCommand>
+public class DeleteCustomerHandler : IRequestHandler<DeleteCustomerCommand>
 {
-    private readonly ICustomerRepository _repository = repository;
-    private readonly ILogger<DeleteCustomerHandler> _logger = logger;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly ILogger<DeleteCustomerHandler> _logger;
+
+    public DeleteCustomerHandler(IUnitOfWork unitOfWork, ILogger<DeleteCustomerHandler> logger)
+    {
+        _unitOfWork = unitOfWork;
+        _logger = logger;
+    }
 
     public async Task Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
     {
-        await _repository.DeleteAsync(request.Id);
+        await _unitOfWork.CustomerRepository.DeleteAsync(request.Id);
+        await _unitOfWork.SaveAsync();
 
         _logger.LogInformation("Customer deleted");
     }

@@ -1,18 +1,25 @@
 ﻿using MediatR;
 using SampleApp.Api.Application.Commands;
-using SampleApp.Domain.Customer.Repositories;
+using SampleApp.Infrastructure.Services;
 
 namespace SampleApp.Api.Application.Handlers;
 
-public class UpdateCustomerHandler(ICustomerRepository customerRepository, ILogger<UpdateCustomerHandler> logger) : IRequestHandler<UpdateCustomerCommand>
+public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand>
 {
-    private readonly ICustomerRepository _customerRepository = customerRepository;
-    private readonly ILogger<UpdateCustomerHandler> _logger = logger;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly ILogger<UpdateCustomerHandler> _logger;
+
+    public UpdateCustomerHandler(IUnitOfWork unitOfWork, ILogger<UpdateCustomerHandler> logger)
+    {
+        _unitOfWork = unitOfWork;
+        _logger = logger;
+    }
 
     public async Task Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Update customer");
 
-        await _customerRepository.UpdateAsync(request.Id, request.Data);
+        await _unitOfWork.CustomerRepository.UpdateAsync(request.Id, request.Data);
+        await _unitOfWork.SaveAsync();
     }
 }
