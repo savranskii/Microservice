@@ -13,7 +13,6 @@ public class CustomerRepository(CustomerContext context) : ICustomerRepository
     {
         _context.Customers.Add(item);
         await Task.CompletedTask;
-        // await _context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(long id)
@@ -22,8 +21,6 @@ public class CustomerRepository(CustomerContext context) : ICustomerRepository
         if (customer is not null)
         {
             _context.Customers.Remove(customer);
-            await Task.CompletedTask;
-            // await _context.SaveChangesAsync();
         }
     }
 
@@ -45,10 +42,7 @@ public class CustomerRepository(CustomerContext context) : ICustomerRepository
     public async Task UpdateAsync(long id, Customer item)
     {
         var customer = await _context.Customers.FindAsync(id) ?? throw new ArgumentException("Invalid ID");
-
         customer.Email = item.Email;
-
-        // await _context.SaveChangesAsync();
     }
 
     private bool disposed = false;
