@@ -1,17 +1,11 @@
-using Microsoft.EntityFrameworkCore;
 using SampleApp.Api.Infrastructure.Configurations;
-using SampleApp.Api.Infrastructure.ErrorHandlers;
-using SampleApp.Api.Infrastructure.Options;
-using SampleApp.Domain.Customer.Repositories;
-using SampleApp.Infrastructure.DbContexts;
-using SampleApp.Infrastructure.Models.Settings;
-using SampleApp.Infrastructure.Repositories;
-using SampleApp.Infrastructure.Services;
 using Serilog;
 
 // TODO RateLimit
 
 var builder = WebApplication.CreateBuilder(args);
+
+#region Logger
 
 var logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
@@ -22,23 +16,16 @@ builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 builder.Host.UseSerilog();
 
+#endregion
+
 // Add services to the container.
 
-var rateLimitOptions = new RateLimitOptions();
-builder.Configuration.GetSection(RateLimitOptions.DefaultRateLimit).Bind(rateLimitOptions);
-builder.Services.ConfigureRateLimit(rateLimitOptions);
-
-builder.Services.AddExceptionHandler<DefaultExceptionHandler>();
-
-builder.Services.AddDbContext<CustomerContext>(opt => opt.UseInMemoryDatabase("CustomerDb"));
-
-builder.Services.AddOptions<KafkaSettings>().BindConfiguration("Kafka").ValidateDataAnnotations().ValidateOnStart();
-
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.ConfigureOptions();
+builder.Services.ConfigureRateLimit(builder.Configuration);
+builder.Services.ConfigureExceptionHandler();
+builder.Services.ConfigureDependencies(builder.Configuration);
 
 builder.Services.AddMediatR(options => options.RegisterServicesFromAssemblyContaining<Program>());
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -53,6 +40,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseRateLimiter();
 
 app.UseAuthentication();
 app.UseAuthorization();

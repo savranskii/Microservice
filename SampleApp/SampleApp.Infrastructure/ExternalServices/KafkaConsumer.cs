@@ -3,7 +3,7 @@ using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SampleApp.Infrastructure.Models;
-using SampleApp.Infrastructure.Models.Settings;
+using SampleApp.Infrastructure.Models.Options;
 
 namespace SampleApp.Infrastructure.ExternalServices;
 
@@ -13,7 +13,7 @@ public class KafkaConsumer
     private readonly ILogger<KafkaConsumer> _logger;
     private readonly ConsumerConfig _consumerConfig;
 
-    public KafkaConsumer(ILogger<KafkaConsumer> logger, IOptions<KafkaSettings> options)
+    public KafkaConsumer(ILogger<KafkaConsumer> logger, IOptions<KafkaOptions> options)
     {
         _logger = logger;
         _topic = options.Value.Topic;

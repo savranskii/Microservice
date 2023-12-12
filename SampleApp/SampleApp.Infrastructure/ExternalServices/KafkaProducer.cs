@@ -3,7 +3,7 @@ using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SampleApp.Infrastructure.Constants;
-using SampleApp.Infrastructure.Models.Settings;
+using SampleApp.Infrastructure.Models.Options;
 
 namespace SampleApp.Infrastructure.ExternalServices;
 
@@ -12,7 +12,7 @@ public class KafkaProducer
     private readonly ILogger<KafkaProducer> _logger;
     private readonly ProducerConfig _producerConfig;
 
-    public KafkaProducer(ILogger<KafkaProducer> logger, IOptions<KafkaSettings> options)
+    public KafkaProducer(ILogger<KafkaProducer> logger, IOptions<KafkaOptions> options)
     {
         _logger = logger;
         _producerConfig = new ProducerConfig { BootstrapServers = options.Value.BootstrapServers };
