@@ -12,89 +12,85 @@ internal class Material()
 
 internal class MenuUI
 {
-    public Text categoryText;
-
-    private int _activeCategory = 0;
-    private int _activeMaterial = 0;
-
     private MaterialCategory[] _categories =
     [
         new MaterialCategory
         {
             Name = "Classic",
-            Materials =
-            [
+            Materials = new[]
+            {
                 new MaterialElement
                 {
                     TexturePath = "/Images/Materials/CC001.jpg",
-                    Colors =
-                    [
+                    Colors = new[]
+                    {
                         new Color(1, 1, 1, 1),
                         new Color(134, 123, 112, 1),
-                    ]
+                    }
                 }
-            ]
+            }
         }
     ];
 
+#region Category
+
+    public Text categoryLabel;
+    private int _activeCategory = 0;
+
+    // Next button handler
     public void NextCategory()
     {
         if (_activeCategory == _categories.Length - 1)
             _activeCategory = 0;
         else
             _activeCategory++;
-
-        SetActiveCategory();
+        RenderActiveCategory();
     }
 
+    // Prev button handler
     public void PrevCategory()
     {
         if (_activeCategory == 0)
             _activeCategory = _categories.Length - 1;
         else
             _activeCategory--;
-
-        SetActiveCategory();
+        RenderActiveCategory();
     }
 
-    private void SetActiveCategory()
+    // Render list of materials
+    private void RenderActiveCategory()
     {
-        _activeMaterial = 0;
-        // categoryText.text = _categories[_activeCategory].Name;
-        // rerender materials
+
     }
 
-    public void SelectMaterial()
-    {
-        _activeMaterial = 1;
-    }
-
-    public void ChangeColor(Button btn)
-    {
-        var index = 1;
-        var color = _categories[_activeCategory].Materials[_activeMaterial].Colors[index];
-        _categories[_activeCategory].Materials[_activeMaterial].Material.color = color;
-    }
+#endregion
 }
 
 internal class MaterialCategory
 {
     public string Name { get; init; } = string.Empty;
-    public MaterialElement[] Materials { get; init; } = [];
+    public MaterialElement[] Materials { get; set; } = Array.Empty<MaterialElement>();
 }
 
 internal class MaterialElement
 {
-    public Color[] Colors { get; init; } = [];
-    public string TexturePath { get; init; }
+    public string TexturePath { get; init; } = string.Empty;
+    public Color[] Colors { get; init; } = Array.Empty<Color>();
+    public int ActiveColor { get; private set; }
 
-    public int ActiveColor { get; set; }
-    public Material Material { get; private set; }
-
-    public MaterialElement()
+    public void NextColor()
     {
-        ActiveColor = 0;
-        // Material = Instantiate(typeof(Material));
-        Material.color = Colors[0];
+        if (ActiveColor == Colors.Length - 1)
+            ActiveColor = 0;
+        else
+            ActiveColor++;
+    }
+
+    public void PrevColor()
+    {
+        if (ActiveColor == 0)
+            ActiveColor = Colors.Length - 1;
+        else
+            ActiveColor--;
     }
 }

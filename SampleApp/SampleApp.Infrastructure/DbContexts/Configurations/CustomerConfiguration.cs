@@ -14,7 +14,9 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
             .Ignore(c => c.DomainEvents)
             .Ignore(c => c.Version);
 
+        builder.HasKey(c => c.Id);
         builder.Property(c => c.Email).IsRequired();
         builder.HasIndex(c => c.Email).IsUnique();
+        builder.Property(c => c.Created).HasDefaultValueSql("getdate()");
     }
 }
