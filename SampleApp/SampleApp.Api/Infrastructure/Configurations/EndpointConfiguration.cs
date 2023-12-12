@@ -1,4 +1,5 @@
-﻿using SampleApp.Api.Infrastructure.Endpoints;
+﻿using SampleApp.Api.Application.Constants;
+using SampleApp.Api.Infrastructure.Endpoints;
 
 namespace SampleApp.Api.Infrastructure.Configurations;
 
@@ -7,7 +8,8 @@ public static class EndpointConfiguration
     public static void MapCustomerEndpoints(this WebApplication app)
     {
         app.MapGroup("/api/customer")
-            .MapCustomerApi();
+            .MapCustomerApi()
+            .RequireRateLimiting(RateLimitPolicy.FixedPolicy);
         // .WithTags("Public")
         // .AllowAnonymous();
         // .RequireAuthorization();
