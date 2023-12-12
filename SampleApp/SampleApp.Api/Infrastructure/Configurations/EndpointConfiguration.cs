@@ -1,8 +1,8 @@
 ﻿using SampleApp.Api.Infrastructure.Endpoints;
 
-namespace SampleApp.Api.Infrastructure.Extensions;
+namespace SampleApp.Api.Infrastructure.Configurations;
 
-public static class EndpointExtension
+public static class EndpointConfiguration
 {
     public static void MapCustomerEndpoints(this WebApplication app)
     {
