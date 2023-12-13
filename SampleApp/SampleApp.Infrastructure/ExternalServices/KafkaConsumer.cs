@@ -1,10 +1,10 @@
-﻿using System.Text.Json;
-using Confluent.Kafka;
+﻿using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SampleApp.Infrastructure.Constants;
 using SampleApp.Infrastructure.Models;
 using SampleApp.Infrastructure.Models.Options;
+using System.Text.Json;
 
 namespace SampleApp.Infrastructure.ExternalServices;
 

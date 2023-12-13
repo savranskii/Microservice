@@ -79,7 +79,7 @@ public abstract class Entity : IEntity
             return base.GetHashCode();
 
     }
-    
+
     public static bool operator ==(Entity left, Entity right)
     {
         if (Equals(left, null))

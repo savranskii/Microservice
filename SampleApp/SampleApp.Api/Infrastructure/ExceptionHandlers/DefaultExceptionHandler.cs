@@ -1,7 +1,7 @@
-﻿using System.Net;
-using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using SampleApp.Infrastructure.Constants;
+using System.Net;
 
 namespace SampleApp.Api.Infrastructure.ExceptionHandlers;
 

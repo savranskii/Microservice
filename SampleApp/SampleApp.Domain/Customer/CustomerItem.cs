@@ -1,5 +1,5 @@
-﻿using EntityCustomer = SampleApp.Domain.Customer.Entities.Customer;
-using SampleApp.Domain.Customer.ValueObjects;
+﻿using SampleApp.Domain.Customer.ValueObjects;
+using EntityCustomer = SampleApp.Domain.Customer.Entities.Customer;
 
 namespace SampleApp.Domain.AggregatesModel.BankCustomer;
 

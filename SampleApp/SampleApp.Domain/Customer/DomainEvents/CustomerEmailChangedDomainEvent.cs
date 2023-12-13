@@ -5,4 +5,4 @@ namespace SampleApp.Domain.Customer.DomainEvents;
 public record CustomerEmailChangedDomainEvent(
     string OldEmail,
     string NewEmail
-): INotification;
+) : INotification;

@@ -24,7 +24,7 @@ public class Customer : Entity, IAggregateRoot
     public void SetEmail(string email)
     {
         AddDomainEvent(new CustomerEmailChangedDomainEvent(Email, email));
-        
+
         Email = email;
     }
 }

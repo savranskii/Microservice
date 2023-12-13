@@ -23,8 +23,8 @@ public class UnitOfWork : IUnitOfWork
 
     public UnitOfWork(DbContextOptions<CustomerContext> options, IMediator mediator)
     {
-       _context = new CustomerContext(options);
-       _mediator = mediator;
+        _context = new CustomerContext(options);
+        _mediator = mediator;
     }
 
     public async Task SaveAsync()
