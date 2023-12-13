@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace SampleApp.Api.Infrastructure.ErrorHandlers;
+namespace SampleApp.Api.Infrastructure.ExceptionHandlers;
 
 public class DefaultExceptionHandler : IExceptionHandler
 {
@@ -15,7 +15,7 @@ public class DefaultExceptionHandler : IExceptionHandler
 
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        _logger.LogError(exception, "An unexpected error occurred");
+        _logger.LogError(exception, "---- An unexpected error occurred");
 
         await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
         {

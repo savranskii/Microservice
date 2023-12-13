@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation;
+using Microsoft.EntityFrameworkCore;
+using SampleApp.Api.Application.Commands;
 using SampleApp.Api.Application.Constants;
+using SampleApp.Api.Validators;
 using SampleApp.Domain.Customer.Repositories;
 using SampleApp.Infrastructure.Contexts;
 using SampleApp.Infrastructure.Models.Options;
@@ -18,5 +21,8 @@ public static class DependencyConfiguration
         services.AddDbContext<CustomerContext>(opt => opt.UseInMemoryDatabase(connectionOptions.InMemory));
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddTransient<IValidator<CreateCustomerCommand>, CreateCustomerCommandValidator>();
+        services.AddTransient<IValidator<DeleteCustomerCommand>, DeleteCustomerCommandValidator>();
+        services.AddTransient<IValidator<UpdateCustomerCommand>, UpdateCustomerCommandValidator>();
     }
 }

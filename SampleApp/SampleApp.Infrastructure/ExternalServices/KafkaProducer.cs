@@ -27,7 +27,7 @@ public class KafkaProducer
             Value = JsonSerializer.Serialize(message)
         });
 
-        _logger.LogInformation(LogCategory.KafkaProduce, "Message sent to {topic}", topic);
+        _logger.LogInformation(LogCategory.KafkaProduce, "---- Message sent to {topic}", topic);
 
         return result.Status.ToString();
     }

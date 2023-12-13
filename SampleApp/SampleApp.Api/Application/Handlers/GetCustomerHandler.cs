@@ -18,7 +18,7 @@ public class GetCustomerHandler : IRequestHandler<GetCustomerQuery, Customer?>
 
     public async Task<Customer?> Handle(GetCustomerQuery request, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Retrieving customer");
+        _logger.LogInformation("---- Retrieving customer");
 
         var item = await _unitOfWork.CustomerRepository.GetByIdAsync(request.Id);
         _unitOfWork.Dispose();

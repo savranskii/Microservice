@@ -1,6 +1,9 @@
 using SampleApp.Api.Extensions;
 using Serilog;
 
+// Integration events
+// Add logger categories
+
 var builder = WebApplication.CreateBuilder(args);
 
 #region Logger
@@ -38,6 +41,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseExceptionHandler(opt => { });
 
 app.UseRateLimiter();
 

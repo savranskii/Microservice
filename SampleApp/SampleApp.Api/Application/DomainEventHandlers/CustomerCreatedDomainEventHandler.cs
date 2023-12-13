@@ -14,7 +14,7 @@ public class CustomerCreatedDomainEventHandler : INotificationHandler<CustomerCr
 
     public async Task Handle(CustomerCreatedDomainEvent customerCreatedDomainEvent, CancellationToken cancellationToken)
     {
-        _logger.LogTrace("Event CustomerCreatedDomainEvent handled");
+        _logger.LogTrace("---- Event CustomerCreatedDomainEvent handled");
         await Task.CompletedTask;
     }
 }
