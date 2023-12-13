@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using SampleApp.Api.Application.Commands;
+using SampleApp.Infrastructure.Constants;
 using SampleApp.Infrastructure.Services;
 
 namespace SampleApp.Api.Application.Handlers;
@@ -29,6 +30,6 @@ public class DeleteCustomerHandler : IRequestHandler<DeleteCustomerCommand>
         await _unitOfWork.SaveAsync();
         _unitOfWork.Dispose();
 
-        _logger.LogInformation("---- Customer deleted");
+        _logger.LogInformation(LogCategory.CommandHandler, "---- Customer deleted");
     }
 }

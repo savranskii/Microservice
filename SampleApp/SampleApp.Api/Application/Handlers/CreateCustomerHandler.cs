@@ -2,6 +2,7 @@ using FluentValidation;
 using MediatR;
 using SampleApp.Api.Application.Commands;
 using SampleApp.Domain.Customer.Entities;
+using SampleApp.Infrastructure.Constants;
 using SampleApp.Infrastructure.Services;
 
 namespace SampleApp.Api.Application.Handlers;
@@ -28,7 +29,7 @@ public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand, long
 
         var customer = new Customer(request.Email);
 
-        _logger.LogInformation("---- Customer created");
+        _logger.LogInformation(LogCategory.CommandHandler, "---- Customer created");
 
         await _unitOfWork.CustomerRepository.CreateAsync(customer);
         await _unitOfWork.SaveAsync();

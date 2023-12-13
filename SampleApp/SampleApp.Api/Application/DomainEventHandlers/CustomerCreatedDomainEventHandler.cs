@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using SampleApp.Domain.Customer.DomainEvents;
+using SampleApp.Infrastructure.Constants;
 
 namespace SampleApp.Api;
 
@@ -14,7 +15,7 @@ public class CustomerCreatedDomainEventHandler : INotificationHandler<CustomerCr
 
     public async Task Handle(CustomerCreatedDomainEvent customerCreatedDomainEvent, CancellationToken cancellationToken)
     {
-        _logger.LogTrace("---- Event CustomerCreatedDomainEvent handled");
+        _logger.LogTrace(LogCategory.DomainEventHandler, "---- Event CustomerCreatedDomainEvent handled");
         await Task.CompletedTask;
     }
 }

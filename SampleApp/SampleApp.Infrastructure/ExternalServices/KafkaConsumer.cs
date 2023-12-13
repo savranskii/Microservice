@@ -2,6 +2,7 @@
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SampleApp.Infrastructure.Constants;
 using SampleApp.Infrastructure.Models;
 using SampleApp.Infrastructure.Models.Options;
 
@@ -39,7 +40,7 @@ public class KafkaConsumer
                 {
                     var consumer = consumerBuilder.Consume(cancelToken.Token);
                     var request = JsonSerializer.Deserialize<ProcessingRequest>(consumer.Message.Value);
-                    _logger.LogInformation("---- Processing Id: {id}", request?.Id);
+                    _logger.LogInformation(LogCategory.KafkaConsume, "---- Processing Id: {id}", request?.Id);
                 }
             }
             catch (OperationCanceledException)
@@ -50,7 +51,7 @@ public class KafkaConsumer
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
-            _logger.LogError("---- Consumer error. Reason: {message}", ex.Message);
+            _logger.LogError(LogCategory.KafkaConsume, "---- Consumer error. Reason: {message}", ex.Message);
         }
 
         return Task.CompletedTask;

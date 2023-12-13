@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using SampleApp.Api.Application.Queries;
 using SampleApp.Domain.Customer.Entities;
+using SampleApp.Infrastructure.Constants;
 using SampleApp.Infrastructure.Services;
 
 namespace SampleApp.Api.Application.Handlers;
@@ -18,7 +19,7 @@ public class GetCustomerHandler : IRequestHandler<GetCustomerQuery, Customer?>
 
     public async Task<Customer?> Handle(GetCustomerQuery request, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("---- Retrieving customer");
+        _logger.LogInformation(LogCategory.QueryHandler, "---- Retrieving customer");
 
         var item = await _unitOfWork.CustomerRepository.GetByIdAsync(request.Id);
         _unitOfWork.Dispose();

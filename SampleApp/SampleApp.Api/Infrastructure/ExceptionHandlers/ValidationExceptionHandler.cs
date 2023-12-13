@@ -2,6 +2,7 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using SampleApp.Infrastructure.Constants;
 
 namespace SampleApp.Api.Infrastructure.ExceptionHandlers;
 
@@ -16,7 +17,7 @@ public class ValidationExceptionHandler : IExceptionHandler
 
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        _logger.LogError(exception, "---- A validation error occurred");
+        _logger.LogError(LogCategory.ExceptionHandler, exception, "---- A validation error occurred");
 
         if (exception is ValidationException)
         {
