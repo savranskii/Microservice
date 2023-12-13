@@ -5,9 +5,14 @@ using SampleApp.Infrastructure.DbContexts;
 
 namespace SampleApp.Infrastructure.Repositories;
 
-public class CustomerRepository(CustomerContext context) : ICustomerRepository
+public class CustomerRepository : ICustomerRepository
 {
-    private readonly CustomerContext _context = context;
+    private readonly CustomerContext _context;
+
+    public CustomerRepository(CustomerContext context)
+    {
+        _context = context;
+    }
 
     public async Task CreateAsync(Customer item)
     {
@@ -42,7 +47,7 @@ public class CustomerRepository(CustomerContext context) : ICustomerRepository
     public async Task UpdateAsync(long id, Customer item)
     {
         var customer = await _context.Customers.FindAsync(id) ?? throw new ArgumentException("Invalid ID");
-        customer.Email = item.Email;
+        customer.SetEmail(item.Email);
     }
 
     private bool disposed = false;

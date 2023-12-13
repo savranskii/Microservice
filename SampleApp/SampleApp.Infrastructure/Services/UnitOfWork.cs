@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SampleApp.Domain.Customer.Repositories;
 using SampleApp.Infrastructure.DbContexts;
 using SampleApp.Infrastructure.Repositories;
@@ -7,7 +8,8 @@ namespace SampleApp.Infrastructure.Services;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly  CustomerContext _context;
+    private readonly CustomerContext _context;
+    private readonly IMediator _mediator;
     private ICustomerRepository? _customerRepository;
 
     public ICustomerRepository CustomerRepository
@@ -19,13 +21,16 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
-    public UnitOfWork(DbContextOptions<CustomerContext> options)
+    public UnitOfWork(DbContextOptions<CustomerContext> options, IMediator mediator)
     {
        _context = new CustomerContext(options);
+       _mediator = mediator;
     }
 
     public async Task SaveAsync()
     {
+        await _mediator.DispatchDomainEventsAsync(_context);
+
         await _context.SaveChangesAsync();
     }
 

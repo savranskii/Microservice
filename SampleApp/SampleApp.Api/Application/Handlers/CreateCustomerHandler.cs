@@ -18,10 +18,7 @@ public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand, long
 
     public async Task<long> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
-        var customer = new Customer
-        {
-            Email = request.Email,
-        };
+        var customer = new Customer(request.Email);
 
         _logger.LogInformation("Customer created");
 

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SampleApp.Domain.Customer.Entities;
 
-namespace SampleApp.Infrastructure.DbContexts.Configurations;
+namespace SampleApp.Infrastructure.EntityConfigurations;
 
 public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 {

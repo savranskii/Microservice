@@ -1,8 +1,6 @@
 using SampleApp.Api.Infrastructure.Configurations;
 using Serilog;
 
-// TODO RateLimit
-
 var builder = WebApplication.CreateBuilder(args);
 
 #region Logger

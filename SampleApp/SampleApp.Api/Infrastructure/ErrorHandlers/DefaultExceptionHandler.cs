@@ -4,9 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SampleApp.Api.Infrastructure.ErrorHandlers;
 
-public class DefaultExceptionHandler(ILogger<DefaultExceptionHandler> logger) : IExceptionHandler
+public class DefaultExceptionHandler : IExceptionHandler
 {
-    private readonly ILogger<DefaultExceptionHandler> _logger = logger;
+    private readonly ILogger<DefaultExceptionHandler> _logger;
+
+    public DefaultExceptionHandler(ILogger<DefaultExceptionHandler> logger)
+    {
+        _logger = logger;
+    }
 
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {

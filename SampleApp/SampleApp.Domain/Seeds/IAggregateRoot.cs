@@ -1,8 +1,10 @@
-﻿namespace SampleApp.Domain.Seeds;
+﻿using MediatR;
+
+namespace SampleApp.Domain.Seeds;
 
 public interface IAggregateRoot
 {
     long Version { get; }
-    void AddDomainEvent(IDomainEvent domainEvent);
+    void AddDomainEvent(INotification domainEvent);
     void ClearDomainEvents();
 }

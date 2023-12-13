@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using SampleApp.Api.Application.Commands;
 using SampleApp.Api.Application.Models;
 using SampleApp.Api.Application.Queries;
-using SampleApp.Domain.Customer.DomainEvents;
 using SampleApp.Domain.Customer.Entities;
 
 namespace SampleApp.Api.Infrastructure.Endpoints;
@@ -54,8 +53,6 @@ public class CustomerEndpoint
         logger.LogInformation("Execute create customer");
 
         var customerId = await mediator.Send(new CreateCustomerCommand(data.Email));
-
-        await mediator.Publish(new CustomerCreatedDomainEvent(1, "debit", "123", "John Doe", DateTime.UtcNow));
 
         return TypedResults.Ok(customerId);
     }

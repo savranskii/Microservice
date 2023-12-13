@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SampleApp.Domain.Customer.Entities;
-using SampleApp.Infrastructure.DbContexts.Configurations;
+using SampleApp.Infrastructure.EntityConfigurations;
 
 namespace SampleApp.Infrastructure.DbContexts;
 

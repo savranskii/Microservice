@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using MediatR;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SampleApp.Domain.Seeds;
 
 public interface IEntity<T> where T : struct
 {
-
 }
 
 public interface IEntity : IEntity<long>
@@ -23,16 +23,16 @@ public abstract class Entity : IEntity
         set => _Id = value;
     }
 
-    private readonly List<IDomainEvent> _domainEvents = [];
+    private readonly List<INotification> _domainEvents = new();
     [NotMapped]
-    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+    public IReadOnlyCollection<INotification> DomainEvents => _domainEvents.AsReadOnly();
 
-    public void AddDomainEvent(IDomainEvent eventItem)
+    public void AddDomainEvent(INotification eventItem)
     {
         _domainEvents.Add(eventItem);
     }
 
-    public void RemoveDomainEvent(IDomainEvent eventItem)
+    public void RemoveDomainEvent(INotification eventItem)
     {
         _domainEvents.Remove(eventItem);
     }
