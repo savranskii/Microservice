@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.RateLimiting;
 using SampleApp.Api.Application.Constants;
 using SampleApp.Infrastructure.Models.Options;
 
-namespace SampleApp.Api.Infrastructure.Configurations;
+namespace SampleApp.Api.Extensions;
 
 public static class RateLimitConfiguration
 {

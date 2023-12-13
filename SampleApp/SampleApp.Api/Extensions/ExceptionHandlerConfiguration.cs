@@ -1,6 +1,6 @@
 ﻿using SampleApp.Api.Infrastructure.ErrorHandlers;
 
-namespace SampleApp.Api.Infrastructure.Configurations;
+namespace SampleApp.Api.Extensions;
 
 public static class ExceptionHandlerConfiguration
 {

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SampleApp.Domain.Customer.Repositories;
-using SampleApp.Infrastructure.DbContexts;
+using SampleApp.Infrastructure.Contexts;
 using SampleApp.Infrastructure.Repositories;
 
 namespace SampleApp.Infrastructure.Services;

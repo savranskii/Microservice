@@ -1,7 +1,7 @@
 ﻿using SampleApp.Api.Application.Constants;
 using SampleApp.Api.Infrastructure.Endpoints;
 
-namespace SampleApp.Api.Infrastructure.Configurations;
+namespace SampleApp.Api.Extensions;
 
 public static class EndpointConfiguration
 {

@@ -1,4 +1,4 @@
-using SampleApp.Api.Infrastructure.Configurations;
+using SampleApp.Api.Extensions;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);

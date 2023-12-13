@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SampleApp.Domain.Customer.Entities;
 using SampleApp.Domain.Customer.Repositories;
-using SampleApp.Infrastructure.DbContexts;
+using SampleApp.Infrastructure.Contexts;
 
 namespace SampleApp.Infrastructure.Repositories;
 

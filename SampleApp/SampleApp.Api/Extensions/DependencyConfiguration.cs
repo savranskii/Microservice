@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SampleApp.Api.Application.Constants;
 using SampleApp.Domain.Customer.Repositories;
-using SampleApp.Infrastructure.DbContexts;
+using SampleApp.Infrastructure.Contexts;
 using SampleApp.Infrastructure.Models.Options;
 using SampleApp.Infrastructure.Repositories;
 using SampleApp.Infrastructure.Services;
 
-namespace SampleApp.Api.Infrastructure.Configurations;
+namespace SampleApp.Api.Extensions;
 
 public static class DependencyConfiguration
 {

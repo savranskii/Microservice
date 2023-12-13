@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using SampleApp.Domain.Seeds;
-using SampleApp.Infrastructure.DbContexts;
+using SampleApp.Infrastructure.Contexts;
 
 namespace SampleApp.Infrastructure;
 

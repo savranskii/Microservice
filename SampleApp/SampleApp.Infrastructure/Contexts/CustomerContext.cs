@@ -2,7 +2,7 @@
 using SampleApp.Domain.Customer.Entities;
 using SampleApp.Infrastructure.EntityConfigurations;
 
-namespace SampleApp.Infrastructure.DbContexts;
+namespace SampleApp.Infrastructure.Contexts;
 
 public class CustomerContext : DbContext
 {
