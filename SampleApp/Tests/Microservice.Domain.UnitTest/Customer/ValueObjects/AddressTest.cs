@@ -1,3 +1,5 @@
+using SampleApp.Domain.Customer.ValueObjects;
+
 namespace Microservice.Domain.UnitTest.Customer.ValueObjects;
 
 [TestClass]
