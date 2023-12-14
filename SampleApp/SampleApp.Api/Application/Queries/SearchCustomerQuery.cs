@@ -4,4 +4,4 @@ using SampleApp.Domain.Customer.Entities;
 
 namespace SampleApp.Api.Application.Queries;
 
-public record SearchCustomerQuery(SearchCustomerRequest Data) : IRequest<Customer>;
+public record SearchCustomerQuery(SearchCustomerRequest Data) : IRequest<CustomerInfo>;

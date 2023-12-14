@@ -10,7 +10,7 @@ namespace SampleApp.Api.Infrastructure.Endpoints;
 
 public class CustomerEndpoint
 {
-    public async Task<Results<Ok<Customer>, NotFound>> GetCustomerAsync(
+    public async Task<Results<Ok<CustomerInfo>, NotFound>> GetCustomerAsync(
         [FromRoute] long id,
         [FromServices] IMediator mediator,
         [FromServices] ILogger<CustomerEndpoint> logger)
@@ -22,7 +22,7 @@ public class CustomerEndpoint
         return customer is null ? TypedResults.NotFound() : TypedResults.Ok(customer);
     }
 
-    public async Task<Ok<IEnumerable<Customer>>> GetCustomersAsync(
+    public async Task<Ok<IEnumerable<CustomerInfo>>> GetCustomersAsync(
         [FromServices] IMediator mediator,
         [FromServices] ILogger<CustomerEndpoint> logger)
     {
@@ -33,7 +33,7 @@ public class CustomerEndpoint
         return TypedResults.Ok(customers);
     }
 
-    public async Task<Results<Ok<Customer>, NotFound>> SearchCustomerAsync(
+    public async Task<Results<Ok<CustomerInfo>, NotFound>> SearchCustomerAsync(
         [FromBody] SearchCustomerRequest data,
         [FromServices] IMediator mediator,
         [FromServices] ILogger<CustomerEndpoint> logger)

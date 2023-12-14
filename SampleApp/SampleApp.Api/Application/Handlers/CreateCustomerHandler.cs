@@ -27,7 +27,7 @@ public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand, long
     {
         _validator.ValidateAndThrow(request);
 
-        var customer = new Customer(request.Email);
+        var customer = new CustomerInfo(request.Email);
 
         _logger.LogInformation(LogCategory.CommandHandler, "---- Customer created");
 

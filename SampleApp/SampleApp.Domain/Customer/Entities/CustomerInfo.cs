@@ -3,17 +3,17 @@ using SampleApp.Domain.Seeds;
 
 namespace SampleApp.Domain.Customer.Entities;
 
-public class Customer : Entity, IAggregateRoot
+public class CustomerInfo : Entity, IAggregateRoot
 {
     public long Version => 1;
     public string Email { get; private set; } = string.Empty;
     public DateTime Created { get; private set; } = DateTime.UtcNow;
 
-    public Customer()
+    public CustomerInfo()
     {
     }
 
-    public Customer(string email)
+    public CustomerInfo(string email)
     {
         Email = email;
         Created = DateTime.UtcNow;

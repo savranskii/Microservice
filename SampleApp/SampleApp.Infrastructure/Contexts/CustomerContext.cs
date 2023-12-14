@@ -6,7 +6,7 @@ namespace SampleApp.Infrastructure.Contexts;
 
 public class CustomerContext : DbContext
 {
-    public DbSet<Customer> Customers => Set<Customer>();
+    public DbSet<CustomerInfo> Customers => Set<CustomerInfo>();
 
     public CustomerContext(DbContextOptions<CustomerContext> options) : base(options)
     {

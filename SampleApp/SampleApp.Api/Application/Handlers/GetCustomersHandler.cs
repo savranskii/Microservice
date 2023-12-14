@@ -6,7 +6,7 @@ using SampleApp.Infrastructure.Services;
 
 namespace SampleApp.Api.Application.Handlers;
 
-public class GetCustomersHandler : IRequestHandler<GetCustomersQuery, IEnumerable<Customer>>
+public class GetCustomersHandler : IRequestHandler<GetCustomersQuery, IEnumerable<CustomerInfo>>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly ILogger<GetCustomersHandler> _logger;
@@ -17,7 +17,7 @@ public class GetCustomersHandler : IRequestHandler<GetCustomersQuery, IEnumerabl
         _logger = logger;
     }
 
-    public async Task<IEnumerable<Customer>> Handle(GetCustomersQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<CustomerInfo>> Handle(GetCustomersQuery request, CancellationToken cancellationToken)
     {
         _logger.LogInformation(LogCategory.QueryHandler, "---- Retrieving customer");
 

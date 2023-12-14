@@ -4,9 +4,9 @@ using SampleApp.Domain.Customer.Entities;
 
 namespace SampleApp.Infrastructure.EntityConfigurations;
 
-public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
+public class CustomerConfiguration : IEntityTypeConfiguration<CustomerInfo>
 {
-    public void Configure(EntityTypeBuilder<Customer> builder)
+    public void Configure(EntityTypeBuilder<CustomerInfo> builder)
     {
         builder.ToTable("Customer");
 
