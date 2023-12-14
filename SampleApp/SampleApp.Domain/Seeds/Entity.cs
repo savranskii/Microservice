@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SampleApp.Domain.Seeds;
 
@@ -47,7 +48,7 @@ public abstract class Entity : IEntity
         return Id == default;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj == null || obj is not Entity)
             return false;
