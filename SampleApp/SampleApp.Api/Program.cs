@@ -1,10 +1,7 @@
 using SampleApp.Api.Extensions;
 using Serilog;
 
-// TODO
-// Integration events
-// Unit tests
-// Integrationsl tests
+// TODO: Integration events
 
 var builder = WebApplication.CreateBuilder(args);
 
