@@ -7,14 +7,14 @@ using System.Text.Json;
 
 namespace SampleApp.Infrastructure.ExternalServices;
 
-public class KafkaProducer
+public class KafkaProducer : IIntegrationEventSender
 {
     private readonly ILogger<KafkaProducer> _logger;
     private readonly ProducerConfig _producerConfig;
 
     public KafkaProducer(ILogger<KafkaProducer> logger, IOptions<KafkaOptions> options)
     {
-        _logger = logger;
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _producerConfig = new ProducerConfig { BootstrapServers = options.Value.BootstrapServers };
     }
 

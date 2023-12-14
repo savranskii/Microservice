@@ -11,10 +11,10 @@ public class GetCustomersHandler : IRequestHandler<GetCustomersQuery, IEnumerabl
     private readonly IUnitOfWork _unitOfWork;
     private readonly ILogger<GetCustomersHandler> _logger;
 
-    public GetCustomersHandler(IUnitOfWork unitOfWOrk, ILogger<GetCustomersHandler> logger)
+    public GetCustomersHandler(IUnitOfWork unitOfWork, ILogger<GetCustomersHandler> logger)
     {
-        _unitOfWork = unitOfWOrk;
-        _logger = logger;
+        _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     public async Task<IEnumerable<CustomerInfo>> Handle(GetCustomersQuery request, CancellationToken cancellationToken)

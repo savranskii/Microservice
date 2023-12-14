@@ -10,7 +10,7 @@ public class CustomerEmailChangedDomainEventHandler : INotificationHandler<Custo
 
     public CustomerEmailChangedDomainEventHandler(ILogger<CustomerEmailChangedDomainEventHandler> logger)
     {
-        _logger = logger;
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     public async Task Handle(CustomerEmailChangedDomainEvent customerCreatedDomainEvent, CancellationToken cancellationToken)

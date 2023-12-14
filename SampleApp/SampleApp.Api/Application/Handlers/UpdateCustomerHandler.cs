@@ -17,9 +17,9 @@ public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand>
         ILogger<UpdateCustomerHandler> logger,
         IValidator<UpdateCustomerCommand> validator)
     {
-        _unitOfWork = unitOfWork;
-        _logger = logger;
-        _validator = validator;
+        _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _validator = validator ?? throw new ArgumentNullException(nameof(validator));
     }
 
     public async Task Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)

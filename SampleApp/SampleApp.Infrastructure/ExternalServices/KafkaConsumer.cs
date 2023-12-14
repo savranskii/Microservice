@@ -16,7 +16,7 @@ public class KafkaConsumer
 
     public KafkaConsumer(ILogger<KafkaConsumer> logger, IOptions<KafkaOptions> options)
     {
-        _logger = logger;
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _topic = options.Value.Topic;
         _consumerConfig = new ConsumerConfig
         {

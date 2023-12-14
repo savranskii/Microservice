@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
 
 namespace SampleApp.Domain.Seeds;
 

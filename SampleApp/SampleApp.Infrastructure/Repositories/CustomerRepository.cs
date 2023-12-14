@@ -11,7 +11,7 @@ public class CustomerRepository : ICustomerRepository
 
     public CustomerRepository(CustomerContext context)
     {
-        _context = context;
+        _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
     public async Task CreateAsync(CustomerInfo item)

@@ -13,8 +13,8 @@ public class SearchCustomerHandler : IRequestHandler<SearchCustomerQuery, Custom
 
     public SearchCustomerHandler(IUnitOfWork unitOfWork, ILogger<SearchCustomerHandler> logger)
     {
-        _unitOfWork = unitOfWork;
-        _logger = logger;
+        _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     public async Task<CustomerInfo?> Handle(SearchCustomerQuery request, CancellationToken cancellationToken)

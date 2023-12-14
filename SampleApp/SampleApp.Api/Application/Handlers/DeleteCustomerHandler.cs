@@ -17,9 +17,9 @@ public class DeleteCustomerHandler : IRequestHandler<DeleteCustomerCommand>
         ILogger<DeleteCustomerHandler> logger,
         IValidator<DeleteCustomerCommand> validator)
     {
-        _unitOfWork = unitOfWork;
-        _logger = logger;
-        _validator = validator;
+        _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _validator = validator ?? throw new ArgumentNullException(nameof(validator));
     }
 
     public async Task Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)

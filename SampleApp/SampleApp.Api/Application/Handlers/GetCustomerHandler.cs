@@ -13,8 +13,8 @@ public class GetCustomerHandler : IRequestHandler<GetCustomerQuery, CustomerInfo
 
     public GetCustomerHandler(IUnitOfWork unitOfWork, ILogger<GetCustomerHandler> logger)
     {
-        _unitOfWork = unitOfWork;
-        _logger = logger;
+        _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     public async Task<CustomerInfo?> Handle(GetCustomerQuery request, CancellationToken cancellationToken)
