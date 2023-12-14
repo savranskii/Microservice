@@ -19,7 +19,7 @@ public class GetCustomersHandler : IRequestHandler<GetCustomersQuery, IEnumerabl
 
     public async Task<IEnumerable<CustomerInfo>> Handle(GetCustomersQuery request, CancellationToken cancellationToken)
     {
-        _logger.LogInformation(LogCategory.QueryHandler, "---- Retrieving customer");
+        _logger.LogInformation(LogCategory.QueryHandler, "---- Retrieving customers");
 
         var items = await _unitOfWork.CustomerRepository.GetAllAsync();
         _unitOfWork.Dispose();

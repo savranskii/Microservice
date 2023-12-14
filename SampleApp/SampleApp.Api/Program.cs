@@ -1,25 +1,10 @@
 using SampleApp.Api.Extensions;
-using Serilog;
 
 // TODO: Integration events
 
 var builder = WebApplication.CreateBuilder(args);
 
-#region Logger
-
-var logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(builder.Configuration)
-    .Enrich.FromLogContext()
-    .CreateLogger();
-
-builder.Logging.ClearProviders();
-builder.Logging.AddSerilog(logger);
-builder.Host.UseSerilog();
-
-#endregion
-
 // Add services to the container.
-
 builder.Services.ConfigureOptions();
 builder.Services.ConfigureRateLimit(builder.Configuration);
 builder.Services.ConfigureExceptionHandler();
