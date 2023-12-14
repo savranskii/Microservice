@@ -9,8 +9,9 @@ public static class EndpointConfiguration
     {
         app.MapGroup("/api/customer")
             .MapCustomerApi()
-            .RequireRateLimiting(RateLimitPolicy.FixedPolicy);
-        // .WithTags("Public")
+            .RequireRateLimiting(RateLimitPolicy.FixedPolicy)
+            .WithOpenApi()
+            .WithTags("customer");
         // .AllowAnonymous();
         // .RequireAuthorization();
     }
@@ -19,12 +20,12 @@ public static class EndpointConfiguration
     {
         var endpoint = new CustomerEndpoint();
 
-        group.MapGet("/{id:long}", endpoint.GetCustomerAsync).WithName("GetCustomer").WithOpenApi();
-        group.MapGet("/all", endpoint.GetCustomersAsync).WithName("GetCustomers").WithOpenApi();
-        group.MapPut("/search", endpoint.SearchCustomerAsync).WithName("SearchCustomer").WithOpenApi();
-        group.MapPost("/", endpoint.CreateCustomerAsync).WithName("CreateCustomer").WithOpenApi();
-        group.MapPut("/", endpoint.UpdateCustomerAsync).WithName("UpdateCustomer").WithOpenApi();
-        group.MapDelete("/{id:long}", endpoint.DeleteCustomerAsync).WithName("DeleteCustomer").WithOpenApi();
+        group.MapGet("/{id:long}", endpoint.GetCustomerAsync).WithName("GetCustomer").WithDescription("Get customer by ID");
+        group.MapGet("/all", endpoint.GetCustomersAsync).WithName("GetCustomers").WithDescription("Retrieve all customers");
+        group.MapPut("/search", endpoint.SearchCustomerAsync).WithName("SearchCustomer").WithDescription("Search custimers by filters");
+        group.MapPost("/", endpoint.CreateCustomerAsync).WithName("CreateCustomer").WithDescription("Create new customer");
+        group.MapPut("/", endpoint.UpdateCustomerAsync).WithName("UpdateCustomer").WithDescription("Update existing customer");
+        group.MapDelete("/{id:long}", endpoint.DeleteCustomerAsync).WithName("DeleteCustomer").WithDescription("Delete customer by ID");
 
         return group;
     }
