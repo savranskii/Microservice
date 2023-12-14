@@ -22,7 +22,7 @@ public static class DependencyConfiguration
         services.AddDbContext<CustomerContext>(opt => opt.UseInMemoryDatabase(connectionOptions.InMemory));
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddKeyedScoped<IIntegrationEventSender, KafkaProducer>(ServiceKey.Kafka);
+        services.AddScoped<IIntegrationEventSender, KafkaProducer>();
         services.AddTransient<IValidator<CreateCustomerCommand>, CreateCustomerCommandValidator>();
         services.AddTransient<IValidator<DeleteCustomerCommand>, DeleteCustomerCommandValidator>();
         services.AddTransient<IValidator<UpdateCustomerCommand>, UpdateCustomerCommandValidator>();

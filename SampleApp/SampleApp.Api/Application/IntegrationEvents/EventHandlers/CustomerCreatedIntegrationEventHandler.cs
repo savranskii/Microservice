@@ -13,7 +13,7 @@ public class CustomerCreatedIntegrationEventHandler : INotificationHandler<Custo
 
     public CustomerCreatedIntegrationEventHandler(
         ILogger<CustomerCreatedIntegrationEventHandler> logger,
-        [FromKeyedServices(ServiceKey.Kafka)] IIntegrationEventSender sender)
+        IIntegrationEventSender sender)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _sender = sender ?? throw new ArgumentNullException(nameof(sender));
@@ -22,7 +22,7 @@ public class CustomerCreatedIntegrationEventHandler : INotificationHandler<Custo
     public async Task Handle(CustomerCreatedIntegrationEvent @event, CancellationToken cancellationToken)
     {
         _logger.LogInformation("---- Sending integration event: {CommandName} - {IdProperty}", nameof(@event), @event.CustomerId);
-        await _sender.SendMessageAsync(MessageTopic.CustomerCreated, @event);
-        // await Task.CompletedTask;
+        // await _sender.SendMessageAsync(MessageTopic.CustomerCreated, @event);
+        await Task.CompletedTask;
     }
 }
