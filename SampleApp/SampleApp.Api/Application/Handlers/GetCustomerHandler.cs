@@ -21,8 +21,6 @@ public class GetCustomerHandler : IRequestHandler<GetCustomerQuery, CustomerInfo
     {
         _logger.LogInformation(LogCategory.QueryHandler, "---- Retrieving customer");
 
-        var item = await _unitOfWork.CustomerRepository.GetByIdAsync(request.Id);
-        _unitOfWork.Dispose();
-        return item;
+        return await _unitOfWork.CustomerRepository.GetByIdAsync(request.Id);
     }
 }

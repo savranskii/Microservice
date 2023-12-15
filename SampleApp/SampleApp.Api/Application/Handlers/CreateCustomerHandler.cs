@@ -33,7 +33,6 @@ public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand, long
 
         await _unitOfWork.CustomerRepository.CreateAsync(customer);
         await _unitOfWork.SaveAsync();
-        _unitOfWork.Dispose();
 
         return customer.Id;
     }

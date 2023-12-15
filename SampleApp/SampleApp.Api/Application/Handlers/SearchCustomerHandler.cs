@@ -21,8 +21,6 @@ public class SearchCustomerHandler : IRequestHandler<SearchCustomerQuery, Custom
     {
         _logger.LogInformation(LogCategory.QueryHandler, "---- Retrieving customers by filters");
 
-        var item = await _unitOfWork.CustomerRepository.GetByEmailAsync(request.Data.Email);
-        _unitOfWork.Dispose();
-        return item;
+        return await _unitOfWork.CustomerRepository.GetByEmailAsync(request.Data.Email);
     }
 }
