@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using SampleApp.Api.Application.Constants;
 using SampleApp.Api.Application.IntegrationEvents.Events;
 using SampleApp.Infrastructure.Constants;
 using SampleApp.Infrastructure.ExternalServices;
