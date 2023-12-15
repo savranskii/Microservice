@@ -22,4 +22,9 @@
   <ItemGroup>
     <Folder Include="Infrastructure/Migrations/" />
   </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Tests/SampleApp.Api.IntegrationTest" />
+</ItemGroup>
+
 </Project>
