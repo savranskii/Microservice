@@ -1,6 +1,6 @@
 using SampleApp.Domain.Customer.ValueObjects;
 
-namespace Microservice.Domain.UnitTest.Customer.ValueObjects;
+namespace SampleApp.Domain.UnitTest.Customer.ValueObjects;
 
 [TestClass]
 public class AddressTest
