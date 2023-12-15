@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="Tests/SampleApp.Api.IntegrationTest" />
+    <InternalsVisibleTo Include="Tests\SampleApp.Api.IntegrationTest" />
 </ItemGroup>
 
 </Project>
