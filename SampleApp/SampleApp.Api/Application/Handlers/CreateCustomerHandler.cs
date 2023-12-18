@@ -10,13 +10,13 @@ namespace SampleApp.Api.Application.Handlers;
 public class CreateCustomerHandler(
     IUnitOfWork unitOfWork,
     ILogger<CreateCustomerHandler> logger,
-    IValidator<CreateCustomerCommand> validator) : IRequestHandler<CreateCustomerCommand, long>
+    IValidator<CreateCustomerCommand> validator) : IRequestHandler<CreateCustomerCommand, CustomerInfo>
 {
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
     private readonly ILogger<CreateCustomerHandler> _logger = logger;
     private readonly IValidator<CreateCustomerCommand> _validator = validator;
 
-    public async Task<long> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
+    public async Task<CustomerInfo> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
         _validator.ValidateAndThrow(request);
 
@@ -27,6 +27,6 @@ public class CreateCustomerHandler(
         await _unitOfWork.CustomerRepository.CreateAsync(customer);
         await _unitOfWork.SaveAsync();
 
-        return customer.Id;
+        return customer;
     }
 }

@@ -46,16 +46,16 @@ public class CustomerEndpoint
         return customer is null ? TypedResults.NotFound() : TypedResults.Ok(customer);
     }
 
-    public async Task<Ok<long>> CreateCustomerAsync(
+    public async Task<Ok<CustomerInfo>> CreateCustomerAsync(
         [FromBody] CreateCustomerRequest data,
         [FromServices] IMediator mediator,
         [FromServices] ILogger<CustomerEndpoint> logger)
     {
         logger.LogInformation(LogCategory.CustomerEndpoint, "Execute create customer");
 
-        var customerId = await mediator.Send(new CreateCustomerCommand(data.Email));
+        var customer = await mediator.Send(new CreateCustomerCommand(data.Email));
 
-        return TypedResults.Ok(customerId);
+        return TypedResults.Ok(customer);
     }
 
     public async Task<NoContent> UpdateCustomerAsync(

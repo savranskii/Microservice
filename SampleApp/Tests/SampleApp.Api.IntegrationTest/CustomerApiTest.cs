@@ -79,7 +79,7 @@ public class CustomerApiTest
     public async Task CreateCustomer_Returns_IdOfCreatedItem()
     {
         var result = await _endpoints.CreateCustomerAsync(new CreateCustomerRequest("create@mail.com"), _mediator, _logger);
-        Assert.IsInstanceOfType<Ok<long>>(result);
+        Assert.IsInstanceOfType<Ok<CustomerInfo>>(result);
     }
 
     [TestMethod]
