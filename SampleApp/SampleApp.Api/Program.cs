@@ -3,7 +3,6 @@ using SampleApp.Api.Extensions;
 using SampleApp.Api.Infrastructure.Attributes;
 using SampleApp.Api.Infrastructure.Middleware;
 using Serilog;
-using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
