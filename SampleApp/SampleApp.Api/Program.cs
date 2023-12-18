@@ -1,8 +1,11 @@
 using SampleApp.Api.Extensions;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
+
 builder.Services.ConfigureOptions();
 builder.Services.ConfigureRateLimit(builder.Configuration);
 builder.Services.ConfigureExceptionHandler();
