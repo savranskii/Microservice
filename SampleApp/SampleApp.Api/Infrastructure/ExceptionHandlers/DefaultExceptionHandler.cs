@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using SampleApp.Infrastructure.Constants;
-using System.Net;
 
 namespace SampleApp.Api.Infrastructure.ExceptionHandlers;
 
@@ -11,7 +11,7 @@ public class DefaultExceptionHandler(ILogger<DefaultExceptionHandler> logger) : 
 
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        _logger.LogError(LogCategory.ExceptionHandler, exception, "---- An unexpected error occurred");
+        _logger.LogError(LogCategory.ExceptionHandler, exception, "An unexpected error occurred");
 
         await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
         {

@@ -1,5 +1,5 @@
-﻿using MediatR;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using MediatR;
 
 namespace SampleApp.Domain.Seeds;
 

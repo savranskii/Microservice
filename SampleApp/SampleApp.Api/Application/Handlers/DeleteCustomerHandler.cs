@@ -22,6 +22,6 @@ public class DeleteCustomerHandler(
         await _unitOfWork.CustomerRepository.DeleteAsync(request.Id);
         await _unitOfWork.SaveAsync();
 
-        _logger.LogInformation(LogCategory.CommandHandler, "---- Customer deleted");
+        _logger.LogInformation(LogCategory.CommandHandler, "Customer deleted");
     }
 }

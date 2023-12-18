@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using SampleApp.Infrastructure.Constants;
 
 namespace SampleApp.Api.Application.Commands;
 
@@ -8,6 +9,6 @@ public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCo
     {
         RuleFor(command => command.Email).NotEmpty().EmailAddress().WithMessage("Please specify a valid email");
 
-        logger.LogTrace("----- INSTANCE CREATED - {ClassName}", GetType().Name);
+        logger.LogTrace(LogCategory.ValidatorCreateCustomer, "INSTANCE CREATED - {ClassName}", GetType().Name);
     }
 }

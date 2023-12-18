@@ -15,7 +15,7 @@ public class CustomerCreatedIntegrationEventHandler(
 
     public async Task Handle(CustomerCreatedIntegrationEvent @event, CancellationToken cancellationToken)
     {
-        _logger.LogInformation(LogCategory.IntegrationEventHandler, "---- Sending integration event: {CommandName} - {IdProperty}", nameof(@event), @event.CustomerId);
+        _logger.LogInformation(LogCategory.IntegrationEventHandler, "Sending integration event: {CommandName} - {IdProperty}", nameof(@event), @event.CustomerId);
         // await _sender.SendMessageAsync(MessageTopic.CustomerCreated, @event);
         await Task.CompletedTask;
     }

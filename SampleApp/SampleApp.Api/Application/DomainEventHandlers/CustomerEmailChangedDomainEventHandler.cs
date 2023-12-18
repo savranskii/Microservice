@@ -11,7 +11,7 @@ public class CustomerEmailChangedDomainEventHandler(ILogger<CustomerEmailChanged
 
     public async Task Handle(CustomerEmailChangedDomainEvent customerCreatedDomainEvent, CancellationToken cancellationToken)
     {
-        _logger.LogTrace(LogCategory.DomainEventHandler, "---- Event CustomerEmailChangedDomainEvent handled");
+        _logger.LogTrace(LogCategory.DomainEventHandler, "Event CustomerEmailChangedDomainEvent handled");
         await Task.CompletedTask;
     }
 }

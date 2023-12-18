@@ -19,7 +19,7 @@ public class UpdateCustomerHandler(
     {
         _validator.ValidateAndThrow(request);
 
-        _logger.LogInformation(LogCategory.CommandHandler, "---- Update customer");
+        _logger.LogInformation(LogCategory.CommandHandler, "Update customer");
 
         await _unitOfWork.CustomerRepository.UpdateAsync(request.Id, request.Data);
         await _unitOfWork.SaveAsync();

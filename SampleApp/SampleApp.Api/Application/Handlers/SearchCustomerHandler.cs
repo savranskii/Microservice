@@ -14,7 +14,7 @@ public class SearchCustomerHandler(IUnitOfWork unitOfWork, ILogger<SearchCustome
 
     public async Task<CustomerInfo?> Handle(SearchCustomerQuery request, CancellationToken cancellationToken)
     {
-        _logger.LogInformation(LogCategory.QueryHandler, "---- Retrieving customers by filters");
+        _logger.LogInformation(LogCategory.QueryHandler, "Retrieving customers by filters");
 
         return await _unitOfWork.CustomerRepository.GetByEmailAsync(request.Data.Email);
     }

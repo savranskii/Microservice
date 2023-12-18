@@ -14,7 +14,7 @@ public class GetCustomersHandler(IUnitOfWork unitOfWork, ILogger<GetCustomersHan
 
     public async Task<IEnumerable<CustomerInfo>> Handle(GetCustomersQuery request, CancellationToken cancellationToken)
     {
-        _logger.LogInformation(LogCategory.QueryHandler, "---- Retrieving customers");
+        _logger.LogInformation(LogCategory.QueryHandler, "Retrieving customers");
 
         return await _unitOfWork.CustomerRepository.GetAllAsync();
     }

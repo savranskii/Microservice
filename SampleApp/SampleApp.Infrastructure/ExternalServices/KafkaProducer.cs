@@ -1,9 +1,9 @@
-﻿using Confluent.Kafka;
+﻿using System.Text.Json;
+using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SampleApp.Infrastructure.Constants;
 using SampleApp.Infrastructure.Models.Options;
-using System.Text.Json;
 
 namespace SampleApp.Infrastructure.ExternalServices;
 
@@ -27,7 +27,7 @@ public class KafkaProducer : IIntegrationEventSender
             Value = JsonSerializer.Serialize(message)
         });
 
-        _logger.LogInformation(LogCategory.KafkaProduce, "---- Message sent to {topic}", topic);
+        _logger.LogInformation(LogCategory.KafkaProduce, "Message sent to {topic}", topic);
 
         return result.Status.ToString();
     }

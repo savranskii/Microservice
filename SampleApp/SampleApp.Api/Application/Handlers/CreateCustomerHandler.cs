@@ -22,7 +22,7 @@ public class CreateCustomerHandler(
 
         var customer = new CustomerInfo(request.Email);
 
-        _logger.LogInformation(LogCategory.CommandHandler, "---- Customer created");
+        _logger.LogInformation(LogCategory.CommandHandler, "Customer created");
 
         await _unitOfWork.CustomerRepository.CreateAsync(customer);
         await _unitOfWork.SaveAsync();

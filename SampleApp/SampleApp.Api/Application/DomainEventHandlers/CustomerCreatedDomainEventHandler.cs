@@ -11,7 +11,7 @@ public class CustomerCreatedDomainEventHandler(ILogger<CustomerCreatedDomainEven
 
     public async Task Handle(CustomerCreatedDomainEvent customerCreatedDomainEvent, CancellationToken cancellationToken)
     {
-        _logger.LogTrace(LogCategory.DomainEventHandler, "---- Event CustomerCreatedDomainEvent handled");
+        _logger.LogTrace(LogCategory.DomainEventHandler, "Event CustomerCreatedDomainEvent handled");
         await Task.CompletedTask;
     }
 }

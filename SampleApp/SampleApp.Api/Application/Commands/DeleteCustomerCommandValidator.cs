@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using SampleApp.Infrastructure.Constants;
 
 namespace SampleApp.Api.Application.Commands;
 
@@ -8,6 +9,6 @@ public class DeleteCustomerCommandValidator : AbstractValidator<DeleteCustomerCo
     {
         RuleFor(command => command.Id).NotEmpty();
 
-        logger.LogTrace("----- INSTANCE CREATED - {ClassName}", GetType().Name);
+        logger.LogTrace(LogCategory.ValidatorDeleteCustomer, "INSTANCE CREATED - {ClassName}", GetType().Name);
     }
 }

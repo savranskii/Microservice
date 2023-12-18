@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.RateLimiting;
+﻿using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.RateLimiting;
 using SampleApp.Api.Application.Constants;
 using SampleApp.Infrastructure.Models.Options;
-using System.Threading.RateLimiting;
 
 namespace SampleApp.Api.Extensions;
 

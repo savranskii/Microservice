@@ -16,7 +16,7 @@ public class CustomerEndpoint
         [FromServices] IMediator mediator,
         [FromServices] ILogger<CustomerEndpoint> logger)
     {
-        logger.LogInformation(LogCategory.CustomerEndpoint, "---- Execute get by id customer");
+        logger.LogInformation(LogCategory.CustomerEndpoint, "Execute get by id customer");
 
         var customer = await mediator.Send(new GetCustomerQuery(id));
 
@@ -27,7 +27,7 @@ public class CustomerEndpoint
         [FromServices] IMediator mediator,
         [FromServices] ILogger<CustomerEndpoint> logger)
     {
-        logger.LogInformation(LogCategory.CustomerEndpoint, "---- Execute get all customer");
+        logger.LogInformation(LogCategory.CustomerEndpoint, "Execute get all customer");
 
         var customers = await mediator.Send(new GetCustomersQuery());
 
@@ -39,7 +39,7 @@ public class CustomerEndpoint
         [FromServices] IMediator mediator,
         [FromServices] ILogger<CustomerEndpoint> logger)
     {
-        logger.LogInformation(LogCategory.CustomerEndpoint, "---- Execute search customer");
+        logger.LogInformation(LogCategory.CustomerEndpoint, "Execute search customer");
 
         var customer = await mediator.Send(new SearchCustomerQuery(data));
 
@@ -51,7 +51,7 @@ public class CustomerEndpoint
         [FromServices] IMediator mediator,
         [FromServices] ILogger<CustomerEndpoint> logger)
     {
-        logger.LogInformation(LogCategory.CustomerEndpoint, "---- Execute create customer");
+        logger.LogInformation(LogCategory.CustomerEndpoint, "Execute create customer");
 
         var customerId = await mediator.Send(new CreateCustomerCommand(data.Email));
 
@@ -63,7 +63,7 @@ public class CustomerEndpoint
         [FromServices] IMediator mediator,
         [FromServices] ILogger<CustomerEndpoint> logger)
     {
-        logger.LogInformation(LogCategory.CustomerEndpoint, "---- Execute update customer");
+        logger.LogInformation(LogCategory.CustomerEndpoint, "Execute update customer");
 
         await mediator.Send(new UpdateCustomerCommand(data.Id, data.Item));
 
@@ -75,7 +75,7 @@ public class CustomerEndpoint
         [FromServices] IMediator mediator,
         [FromServices] ILogger<CustomerEndpoint> logger)
     {
-        logger.LogInformation(LogCategory.CustomerEndpoint, "---- Execute delete customer");
+        logger.LogInformation(LogCategory.CustomerEndpoint, "Execute delete customer");
 
         await mediator.Send(new DeleteCustomerCommand(id));
 
