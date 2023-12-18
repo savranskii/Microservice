@@ -13,9 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6A1F460A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleApp.Domain.UnitTest", "Tests\SampleApp.Domain.UnitTest\SampleApp.Domain.UnitTest.csproj", "{49A46AB4-08BB-4494-B10A-BC461224F3D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApp.Infrastructure.UnitTest", "Tests\SampleApp.Infrastructure.UnitTest\SampleApp.Infrastructure.UnitTest.csproj", "{A54CBDCC-D48C-4B27-9BDE-7791A41C719D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleApp.Infrastructure.UnitTest", "Tests\SampleApp.Infrastructure.UnitTest\SampleApp.Infrastructure.UnitTest.csproj", "{A54CBDCC-D48C-4B27-9BDE-7791A41C719D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApp.Api.IntegrationTest", "Tests\SampleApp.Api.IntegrationTest\SampleApp.Api.IntegrationTest.csproj", "{4C4DA915-C1EC-480A-9087-66A176ECC788}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleApp.Api.IntegrationTest", "Tests\SampleApp.Api.IntegrationTest\SampleApp.Api.IntegrationTest.csproj", "{4C4DA915-C1EC-480A-9087-66A176ECC788}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
