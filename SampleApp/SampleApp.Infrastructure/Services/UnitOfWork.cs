@@ -9,7 +9,7 @@ namespace SampleApp.Infrastructure.Services;
 public class UnitOfWork(DbContextOptions<CustomerContext> options, IMediator mediator) : IUnitOfWork
 {
     private readonly CustomerContext _context = new(options);
-    private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+    private readonly IMediator _mediator = mediator;
     private ICustomerRepository? _customerRepository;
 
     public ICustomerRepository CustomerRepository

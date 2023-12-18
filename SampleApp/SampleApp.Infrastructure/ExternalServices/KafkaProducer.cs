@@ -14,7 +14,7 @@ public class KafkaProducer : IIntegrationEventSender
 
     public KafkaProducer(ILogger<KafkaProducer> logger, IOptions<KafkaOptions> options)
     {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _logger = logger;
         _producerConfig = new ProducerConfig { BootstrapServers = options.Value.BootstrapServers };
     }
 

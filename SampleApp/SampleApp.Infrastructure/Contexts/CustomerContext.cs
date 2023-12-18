@@ -4,7 +4,7 @@ using SampleApp.Infrastructure.EntityConfigurations;
 
 namespace SampleApp.Infrastructure.Contexts;
 
-public class CustomerContext(DbContextOptions<CustomerContext> options) : DbContext(options)
+public sealed class CustomerContext(DbContextOptions<CustomerContext> options) : DbContext(options)
 {
     public DbSet<CustomerInfo> Customers => Set<CustomerInfo>();
 
