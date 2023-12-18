@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-using Microsoft.EntityFrameworkCore;
-using SampleApp.Api.Application.Commands;
+﻿using Microsoft.EntityFrameworkCore;
 using SampleApp.Api.Application.Constants;
 using SampleApp.Domain.Customer.Repositories;
 using SampleApp.Infrastructure.Contexts;
@@ -22,8 +20,5 @@ public static class DependencyConfiguration
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IIntegrationEventSender, KafkaProducer>();
-        services.AddTransient<IValidator<CreateCustomerCommand>, CreateCustomerCommandValidator>();
-        services.AddTransient<IValidator<DeleteCustomerCommand>, DeleteCustomerCommandValidator>();
-        services.AddTransient<IValidator<UpdateCustomerCommand>, UpdateCustomerCommandValidator>();
     }
 }

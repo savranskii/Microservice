@@ -9,8 +9,5 @@ public static class LogCategory
     public const int CommandHandler = 4000;
     public const int QueryHandler = 5000;
     public const int CustomerEndpoint = 6000;
-    public const int ValidatorCreateCustomer = 7000;
-    public const int ValidatorUpdateCustomer = 7001;
-    public const int ValidatorDeleteCustomer = 7002;
     public const int ExceptionHandler = 9000;
 }
