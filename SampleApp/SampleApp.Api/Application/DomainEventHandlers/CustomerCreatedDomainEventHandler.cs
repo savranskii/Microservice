@@ -4,14 +4,10 @@ using SampleApp.Infrastructure.Constants;
 
 namespace SampleApp.Api;
 
-public class CustomerCreatedDomainEventHandler : INotificationHandler<CustomerCreatedDomainEvent>
+public class CustomerCreatedDomainEventHandler(ILogger<CustomerCreatedDomainEventHandler> logger)
+    : INotificationHandler<CustomerCreatedDomainEvent>
 {
-    private readonly ILogger<CustomerCreatedDomainEventHandler> _logger;
-
-    public CustomerCreatedDomainEventHandler(ILogger<CustomerCreatedDomainEventHandler> logger)
-    {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    }
+    private readonly ILogger<CustomerCreatedDomainEventHandler> _logger = logger;
 
     public async Task Handle(CustomerCreatedDomainEvent customerCreatedDomainEvent, CancellationToken cancellationToken)
     {

@@ -6,16 +6,11 @@ using SampleApp.Infrastructure.Services;
 
 namespace SampleApp.Api.Application.Handlers;
 
-public class GetCustomersHandler : IRequestHandler<GetCustomersQuery, IEnumerable<CustomerInfo>>
+public class GetCustomersHandler(IUnitOfWork unitOfWork, ILogger<GetCustomersHandler> logger)
+    : IRequestHandler<GetCustomersQuery, IEnumerable<CustomerInfo>>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly ILogger<GetCustomersHandler> _logger;
-
-    public GetCustomersHandler(IUnitOfWork unitOfWork, ILogger<GetCustomersHandler> logger)
-    {
-        _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    }
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly ILogger<GetCustomersHandler> _logger = logger;
 
     public async Task<IEnumerable<CustomerInfo>> Handle(GetCustomersQuery request, CancellationToken cancellationToken)
     {

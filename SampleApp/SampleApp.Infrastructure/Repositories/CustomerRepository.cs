@@ -5,14 +5,9 @@ using SampleApp.Infrastructure.Contexts;
 
 namespace SampleApp.Infrastructure.Repositories;
 
-public class CustomerRepository : ICustomerRepository
+public class CustomerRepository(CustomerContext context) : ICustomerRepository
 {
-    private readonly CustomerContext _context;
-
-    public CustomerRepository(CustomerContext context)
-    {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
-    }
+    private readonly CustomerContext _context = context;
 
     public async Task CreateAsync(CustomerInfo item)
     {

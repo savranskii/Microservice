@@ -6,10 +6,10 @@ using SampleApp.Infrastructure.Repositories;
 
 namespace SampleApp.Infrastructure.Services;
 
-public class UnitOfWork : IUnitOfWork
+public class UnitOfWork(DbContextOptions<CustomerContext> options, IMediator mediator) : IUnitOfWork
 {
-    private readonly CustomerContext _context;
-    private readonly IMediator _mediator;
+    private readonly CustomerContext _context = new(options);
+    private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     private ICustomerRepository? _customerRepository;
 
     public ICustomerRepository CustomerRepository
@@ -19,12 +19,6 @@ public class UnitOfWork : IUnitOfWork
             _customerRepository ??= new CustomerRepository(_context);
             return _customerRepository;
         }
-    }
-
-    public UnitOfWork(DbContextOptions<CustomerContext> options, IMediator mediator)
-    {
-        _context = new CustomerContext(options);
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     }
 
     public async Task SaveAsync()

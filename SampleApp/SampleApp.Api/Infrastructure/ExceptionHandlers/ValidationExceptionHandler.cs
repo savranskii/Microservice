@@ -6,14 +6,9 @@ using System.Net;
 
 namespace SampleApp.Api.Infrastructure.ExceptionHandlers;
 
-public class ValidationExceptionHandler : IExceptionHandler
+public class ValidationExceptionHandler(ILogger<DefaultExceptionHandler> logger) : IExceptionHandler
 {
-    private readonly ILogger<DefaultExceptionHandler> _logger;
-
-    public ValidationExceptionHandler(ILogger<DefaultExceptionHandler> logger)
-    {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    }
+    private readonly ILogger<DefaultExceptionHandler> _logger = logger;
 
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
@@ -30,7 +25,7 @@ public class ValidationExceptionHandler : IExceptionHandler
                 Title = "A validation error occurred",
                 Detail = exception.Message,
                 Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}"
-            });
+            }, cancellationToken: cancellationToken);
             return true;
         }
         return false;

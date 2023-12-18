@@ -5,18 +5,13 @@ using SampleApp.Infrastructure.ExternalServices;
 
 namespace SampleApp.Api.IntegrationEvents.EventHandlers;
 
-public class CustomerCreatedIntegrationEventHandler : INotificationHandler<CustomerCreatedIntegrationEvent>
+public class CustomerCreatedIntegrationEventHandler(
+    ILogger<CustomerCreatedIntegrationEventHandler> logger,
+    IIntegrationEventSender sender)
+    : INotificationHandler<CustomerCreatedIntegrationEvent>
 {
-    private readonly IIntegrationEventSender _sender;
-    private readonly ILogger<CustomerCreatedIntegrationEventHandler> _logger;
-
-    public CustomerCreatedIntegrationEventHandler(
-        ILogger<CustomerCreatedIntegrationEventHandler> logger,
-        IIntegrationEventSender sender)
-    {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _sender = sender ?? throw new ArgumentNullException(nameof(sender));
-    }
+    private readonly IIntegrationEventSender _sender = sender;
+    private readonly ILogger<CustomerCreatedIntegrationEventHandler> _logger = logger;
 
     public async Task Handle(CustomerCreatedIntegrationEvent @event, CancellationToken cancellationToken)
     {

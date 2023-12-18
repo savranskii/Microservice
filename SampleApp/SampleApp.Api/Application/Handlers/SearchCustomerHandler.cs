@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using SampleApp.Api.Application.Queries;
 using SampleApp.Domain.Customer.Entities;
 using SampleApp.Infrastructure.Constants;
@@ -6,16 +6,11 @@ using SampleApp.Infrastructure.Services;
 
 namespace SampleApp.Api.Application.Handlers;
 
-public class SearchCustomerHandler : IRequestHandler<SearchCustomerQuery, CustomerInfo?>
+public class SearchCustomerHandler(IUnitOfWork unitOfWork, ILogger<SearchCustomerHandler> logger)
+    : IRequestHandler<SearchCustomerQuery, CustomerInfo?>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly ILogger<SearchCustomerHandler> _logger;
-
-    public SearchCustomerHandler(IUnitOfWork unitOfWork, ILogger<SearchCustomerHandler> logger)
-    {
-        _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    }
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly ILogger<SearchCustomerHandler> _logger = logger;
 
     public async Task<CustomerInfo?> Handle(SearchCustomerQuery request, CancellationToken cancellationToken)
     {

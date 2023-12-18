@@ -1,4 +1,4 @@
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
 using SampleApp.Api.Extensions;
 using SampleApp.Api.Infrastructure.Attributes;
 using SampleApp.Api.Infrastructure.Middleware;

@@ -4,13 +4,9 @@ using SampleApp.Infrastructure.EntityConfigurations;
 
 namespace SampleApp.Infrastructure.Contexts;
 
-public class CustomerContext : DbContext
+public class CustomerContext(DbContextOptions<CustomerContext> options) : DbContext(options)
 {
     public DbSet<CustomerInfo> Customers => Set<CustomerInfo>();
-
-    public CustomerContext(DbContextOptions<CustomerContext> options) : base(options)
-    {
-    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

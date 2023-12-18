@@ -6,21 +6,14 @@ using SampleApp.Infrastructure.Services;
 
 namespace SampleApp.Api.Application.Handlers;
 
-public class DeleteCustomerHandler : IRequestHandler<DeleteCustomerCommand>
+public class DeleteCustomerHandler(
+    IUnitOfWork unitOfWork,
+    ILogger<DeleteCustomerHandler> logger,
+    IValidator<DeleteCustomerCommand> validator) : IRequestHandler<DeleteCustomerCommand>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly ILogger<DeleteCustomerHandler> _logger;
-    private readonly IValidator<DeleteCustomerCommand> _validator;
-
-    public DeleteCustomerHandler(
-        IUnitOfWork unitOfWork,
-        ILogger<DeleteCustomerHandler> logger,
-        IValidator<DeleteCustomerCommand> validator)
-    {
-        _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _validator = validator ?? throw new ArgumentNullException(nameof(validator));
-    }
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly ILogger<DeleteCustomerHandler> _logger = logger;
+    private readonly IValidator<DeleteCustomerCommand> _validator = validator;
 
     public async Task Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
     {

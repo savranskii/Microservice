@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using SampleApp.Api.Application.Commands;
 using SampleApp.Api.Application.Constants;
-using SampleApp.Api.Validators;
 using SampleApp.Domain.Customer.Repositories;
 using SampleApp.Infrastructure.Contexts;
 using SampleApp.Infrastructure.ExternalServices;

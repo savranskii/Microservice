@@ -6,21 +6,14 @@ using SampleApp.Infrastructure.Services;
 
 namespace SampleApp.Api.Application.Handlers;
 
-public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand>
+public class UpdateCustomerHandler(
+    IUnitOfWork unitOfWork,
+    ILogger<UpdateCustomerHandler> logger,
+    IValidator<UpdateCustomerCommand> validator) : IRequestHandler<UpdateCustomerCommand>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly ILogger<UpdateCustomerHandler> _logger;
-    private readonly IValidator<UpdateCustomerCommand> _validator;
-
-    public UpdateCustomerHandler(
-        IUnitOfWork unitOfWork,
-        ILogger<UpdateCustomerHandler> logger,
-        IValidator<UpdateCustomerCommand> validator)
-    {
-        _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _validator = validator ?? throw new ArgumentNullException(nameof(validator));
-    }
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly ILogger<UpdateCustomerHandler> _logger = logger;
+    private readonly IValidator<UpdateCustomerCommand> _validator = validator;
 
     public async Task Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
     {
