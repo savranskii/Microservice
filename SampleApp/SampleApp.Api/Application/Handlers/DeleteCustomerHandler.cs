@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using SampleApp.Api.Application.Commands;
 using SampleApp.Infrastructure.Constants;
 using SampleApp.Infrastructure.Services;
@@ -13,6 +14,11 @@ public class DeleteCustomerHandler(IUnitOfWork unitOfWork, ILogger<DeleteCustome
 
     public async Task Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
     {
+        _logger.LogInformation(LogCategory.CommandHandler, "Validating request");
+        new DeleteCustomerCommandValidator().ValidateAndThrow(request);
+
+        _logger.LogInformation(LogCategory.CommandHandler, "Deleting customer");
+
         await _unitOfWork.CustomerRepository.DeleteAsync(request.Id);
         await _unitOfWork.SaveAsync();
 
