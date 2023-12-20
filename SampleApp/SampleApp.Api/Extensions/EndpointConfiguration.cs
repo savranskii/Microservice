@@ -18,14 +18,12 @@ public static class EndpointConfiguration
 
     public static RouteGroupBuilder MapCustomerApi(this RouteGroupBuilder group)
     {
-        var endpoint = new CustomerEndpoint();
-
-        group.MapGet("/{id:long}", endpoint.GetCustomerAsync).WithDescription("Get customer by ID");
-        group.MapGet("/all", endpoint.GetCustomersAsync).WithDescription("Retrieve all customers");
-        group.MapPut("/search", endpoint.SearchCustomerAsync).WithDescription("Search customers by filters");
-        group.MapPost("/", endpoint.CreateCustomerAsync).WithDescription("Create new customer");
-        group.MapPut("/", endpoint.UpdateCustomerAsync).WithDescription("Update existing customer");
-        group.MapDelete("/{id:long}", endpoint.DeleteCustomerAsync).WithDescription("Delete customer by ID");
+        group.MapGet("/{id:long}", CustomerEndpoint.GetAsync).WithDescription("Get customer by ID");
+        group.MapGet("/all", CustomerEndpoint.GetAllAsync).WithDescription("Retrieve all customers");
+        group.MapPut("/search", CustomerEndpoint.SearchAsync).WithDescription("Search customers by filters");
+        group.MapPost("/", CustomerEndpoint.CreateAsync).WithDescription("Create new customer");
+        group.MapPut("/{id:long}", CustomerEndpoint.UpdateAsync).WithDescription("Update existing customer");
+        group.MapDelete("/{id:long}", CustomerEndpoint.DeleteAsync).WithDescription("Delete customer by ID");
 
         return group;
     }

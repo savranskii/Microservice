@@ -1,15 +1,15 @@
 ﻿using FluentValidation;
 using MediatR;
 using SampleApp.Api.Application.Commands;
+using SampleApp.Domain.Customer.Repositories;
 using SampleApp.Infrastructure.Constants;
-using SampleApp.Infrastructure.Services;
 
 namespace SampleApp.Api.Application.Handlers;
 
-public class DeleteCustomerHandler(IUnitOfWork unitOfWork, ILogger<DeleteCustomerHandler> logger)
+public class DeleteCustomerHandler(ICustomerRepository repo, ILogger<DeleteCustomerHandler> logger)
     : IRequestHandler<DeleteCustomerCommand>
 {
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly ICustomerRepository _repo = repo;
     private readonly ILogger<DeleteCustomerHandler> _logger = logger;
 
     public async Task Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
@@ -19,8 +19,8 @@ public class DeleteCustomerHandler(IUnitOfWork unitOfWork, ILogger<DeleteCustome
 
         _logger.LogInformation(LogCategory.CommandHandler, "Deleting customer");
 
-        await _unitOfWork.CustomerRepository.DeleteAsync(request.Id);
-        await _unitOfWork.SaveAsync();
+        await _repo.DeleteAsync(request.Id);
+        await _repo.UnitOfWork.SaveEntitiesAsync();
 
         _logger.LogInformation(LogCategory.CommandHandler, "Customer deleted");
     }

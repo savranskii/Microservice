@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SampleApp.Domain.Customer.Entities;
 using SampleApp.Domain.Customer.Repositories;
+using SampleApp.Domain.Seeds;
 using SampleApp.Infrastructure.Contexts;
 
 namespace SampleApp.Infrastructure.Repositories;
@@ -8,6 +9,8 @@ namespace SampleApp.Infrastructure.Repositories;
 public class CustomerRepository(CustomerContext context) : ICustomerRepository
 {
     private readonly CustomerContext _context = context;
+
+    public IUnitOfWork UnitOfWork => _context;
 
     public async Task CreateAsync(CustomerInfo item)
     {

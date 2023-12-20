@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using SampleApp.Domain.Customer.Entities;
+using SampleApp.Api.Application.Models;
 
 namespace SampleApp.Api.Application.Commands;
 
-public record UpdateCustomerCommand(long Id, CustomerInfo Data) : IRequest;
+public record UpdateCustomerCommand(long Id, UpdateCustomerRequest Data) : IRequest;

@@ -1,15 +1,15 @@
 ﻿using FluentValidation;
 using MediatR;
 using SampleApp.Api.Application.Commands;
+using SampleApp.Domain.Customer.Repositories;
 using SampleApp.Infrastructure.Constants;
-using SampleApp.Infrastructure.Services;
 
 namespace SampleApp.Api.Application.Handlers;
 
-public class UpdateCustomerHandler(IUnitOfWork unitOfWork, ILogger<UpdateCustomerHandler> logger)
+public class UpdateCustomerHandler(ICustomerRepository repo, ILogger<UpdateCustomerHandler> logger)
     : IRequestHandler<UpdateCustomerCommand>
 {
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly ICustomerRepository _repo = repo;
     private readonly ILogger<UpdateCustomerHandler> _logger = logger;
 
     public async Task Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
@@ -19,8 +19,8 @@ public class UpdateCustomerHandler(IUnitOfWork unitOfWork, ILogger<UpdateCustome
 
         _logger.LogInformation(LogCategory.CommandHandler, "Updating customer");
 
-        await _unitOfWork.CustomerRepository.UpdateAsync(request.Id, request.Data);
-        await _unitOfWork.SaveAsync();
+        await _repo.UpdateAsync(request.Id, new(request.Data.Email));
+        await _repo.UnitOfWork.SaveEntitiesAsync();
 
         _logger.LogInformation(LogCategory.CommandHandler, "Customer updated");
     }

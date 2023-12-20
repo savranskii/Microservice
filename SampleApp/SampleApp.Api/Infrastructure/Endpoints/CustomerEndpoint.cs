@@ -11,7 +11,7 @@ namespace SampleApp.Api.Infrastructure.Endpoints;
 
 public class CustomerEndpoint
 {
-    public async Task<Results<Ok<CustomerInfo>, NotFound>> GetCustomerAsync(
+    public static async Task<Results<Ok<CustomerInfo>, NotFound>> GetAsync(
         [FromRoute] long id,
         [FromServices] IMediator mediator,
         [FromServices] ILogger<CustomerEndpoint> logger)
@@ -23,7 +23,7 @@ public class CustomerEndpoint
         return customer is null ? TypedResults.NotFound() : TypedResults.Ok(customer);
     }
 
-    public async Task<Ok<IEnumerable<CustomerInfo>>> GetCustomersAsync(
+    public static async Task<Ok<IEnumerable<CustomerInfo>>> GetAllAsync(
         [FromServices] IMediator mediator,
         [FromServices] ILogger<CustomerEndpoint> logger)
     {
@@ -34,7 +34,7 @@ public class CustomerEndpoint
         return TypedResults.Ok(customers);
     }
 
-    public async Task<Results<Ok<CustomerInfo>, NotFound>> SearchCustomerAsync(
+    public static async Task<Results<Ok<CustomerInfo>, NotFound>> SearchAsync(
         [FromBody] SearchCustomerRequest data,
         [FromServices] IMediator mediator,
         [FromServices] ILogger<CustomerEndpoint> logger)
@@ -46,7 +46,7 @@ public class CustomerEndpoint
         return customer is null ? TypedResults.NotFound() : TypedResults.Ok(customer);
     }
 
-    public async Task<Ok<CustomerInfo>> CreateCustomerAsync(
+    public static async Task<Ok<CustomerInfo>> CreateAsync(
         [FromBody] CreateCustomerRequest data,
         [FromServices] IMediator mediator,
         [FromServices] ILogger<CustomerEndpoint> logger)
@@ -58,19 +58,20 @@ public class CustomerEndpoint
         return TypedResults.Ok(customer);
     }
 
-    public async Task<NoContent> UpdateCustomerAsync(
+    public static async Task<NoContent> UpdateAsync(
+        [FromRoute] long id,
         [FromBody] UpdateCustomerRequest data,
         [FromServices] IMediator mediator,
         [FromServices] ILogger<CustomerEndpoint> logger)
     {
         logger.LogInformation(LogCategory.CustomerEndpoint, "Execute update customer");
 
-        await mediator.Send(new UpdateCustomerCommand(data.Id, data.Item));
+        await mediator.Send(new UpdateCustomerCommand(id, data));
 
         return TypedResults.NoContent();
     }
 
-    public async Task<NoContent> DeleteCustomerAsync(
+    public static async Task<NoContent> DeleteAsync(
         [FromRoute] long id,
         [FromServices] IMediator mediator,
         [FromServices] ILogger<CustomerEndpoint> logger)

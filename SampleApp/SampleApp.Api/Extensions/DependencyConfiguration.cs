@@ -5,7 +5,6 @@ using SampleApp.Infrastructure.Contexts;
 using SampleApp.Infrastructure.ExternalServices;
 using SampleApp.Infrastructure.Models.Options;
 using SampleApp.Infrastructure.Repositories;
-using SampleApp.Infrastructure.Services;
 
 namespace SampleApp.Api.Extensions;
 
@@ -18,7 +17,6 @@ public static class DependencyConfiguration
 
         services.AddDbContext<CustomerContext>(opt => opt.UseInMemoryDatabase(connectionOptions.InMemory));
         services.AddScoped<ICustomerRepository, CustomerRepository>();
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IIntegrationEventSender, KafkaProducer>();
     }
 }
