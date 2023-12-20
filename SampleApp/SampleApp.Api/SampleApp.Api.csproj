@@ -29,6 +29,6 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="Tests\SampleApp.Api.IntegrationTest" />
-</ItemGroup>
+  </ItemGroup>
 
 </Project>
