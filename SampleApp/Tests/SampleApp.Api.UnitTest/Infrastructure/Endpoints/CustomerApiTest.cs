@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,7 +8,7 @@ using SampleApp.Api.Infrastructure.Endpoints;
 using SampleApp.Domain.Customer.Entities;
 using SampleApp.Domain.Customer.Repositories;
 
-namespace SampleApp.Api.IntegrationTest;
+namespace SampleApp.Api.UnitTest.Infrastructure.Endpoints;
 
 [TestClass]
 public class CustomerApiTest
